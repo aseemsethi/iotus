@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.aseemsethi.com/iotus/utils"
+	"github.com/aseemsethi/iotus/utils"
 	"net/http"
 )
 

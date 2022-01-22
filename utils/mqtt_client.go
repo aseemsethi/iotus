@@ -6,49 +6,57 @@ import (
 	"os"
 	"time"
 
-	"github.com/eclipse/paho.mqtt.golang"
+	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
+
+var CONFIG_BROKER_URL string = "tcp://52.66.70.168:1883"
+var c mqtt.Client = nil
 
 var f mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
 	fmt.Printf("TOPIC: %s\n", msg.Topic())
 	fmt.Printf("MSG: %s\n", msg.Payload())
 }
 
+func Mqtt_disconnect() {
+	fmt.Printf("\n Mqtt_disconnect called")
+	//time.Sleep(6 * time.Second)
+	if token := c.Unsubscribe("testtopic/#"); token.Wait() && token.Error() != nil {
+		fmt.Println(token.Error())
+		os.Exit(1)
+	}
+	c.Disconnect(250)
+	time.Sleep(1 * time.Second)
+}
+
+// https://pkg.go.dev/github.com/eclipse/paho.mqtt.golang#section-readme
 func Mqtt_init() {
 	fmt.Printf("\n Mqtt_init called")
 	mqtt.DEBUG = log.New(os.Stdout, "", 0)
 	mqtt.ERROR = log.New(os.Stdout, "", 0)
-	opts := mqtt.NewClientOptions().AddBroker("tcp://broker.emqx.io:1883").SetClientID("emqx_test_client")
+	opts := mqtt.NewClientOptions().AddBroker(CONFIG_BROKER_URL).SetClientID("gp_client")
+	opts.SetUsername("draadmin")
+	opts.SetPassword("DRAAdmin@123")
 
 	opts.SetKeepAlive(60 * time.Second)
 	// Set the message callback handler
 	opts.SetDefaultPublishHandler(f)
-	opts.SetPingTimeout(1 * time.Second)
+	opts.SetPingTimeout(5 * time.Second)
 
-	c := mqtt.NewClient(opts)
+	c = mqtt.NewClient(opts)
 	if token := c.Connect(); token.Wait() && token.Error() != nil {
 		panic(token.Error())
 	}
 
 	// Subscribe to a topic
-	if token := c.Subscribe("testtopic/#", 0, nil); token.Wait() && token.Error() != nil {
+	// 	Subscribe(topic string, qos byte, callback MessageHandler) Token
+	if token := c.Subscribe("gurupada/#", 0, nil); token.Wait() && token.Error() != nil {
 		fmt.Println(token.Error())
 		os.Exit(1)
 	}
 
 	// Publish a message
-	token := c.Publish("testtopic/1", 0, false, "Hello World")
+	// 	Publish(topic string, qos byte, retained bool, payload interface{}) Token
+	token := c.Publish("gurupada/1", 0, false, "Hello Aseem")
 	token.Wait()
-
-	time.Sleep(6 * time.Second)
-
-	// Unscribe
-	if token := c.Unsubscribe("testtopic/#"); token.Wait() && token.Error() != nil {
-		fmt.Println(token.Error())
-		os.Exit(1)
-	}
-
-	// Disconnect
-	c.Disconnect(250)
-	time.Sleep(1 * time.Second)
+	fmt.Println("MQTT init completed...")
 }
