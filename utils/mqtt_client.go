@@ -17,6 +17,14 @@ var f mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
 	fmt.Printf("MSG: %s\n", msg.Payload())
 }
 
+func Mqtt_set_routing() {
+	// GW Control packets receive handler setup
+	if token := c.Subscribe("gurupada/gw/add", 0, gwMqttRcv); token.Wait() && token.Error() != nil {
+		fmt.Println(token.Error())
+		os.Exit(1)
+	}
+}
+
 func Mqtt_disconnect() {
 	fmt.Printf("\n Mqtt_disconnect called")
 	//time.Sleep(6 * time.Second)
@@ -40,7 +48,7 @@ func Mqtt_init() {
 	opts.SetKeepAlive(60 * time.Second)
 	// Set the message callback handler
 	opts.SetDefaultPublishHandler(f)
-	opts.SetPingTimeout(5 * time.Second)
+	opts.SetPingTimeout(10 * time.Second)
 
 	c = mqtt.NewClient(opts)
 	if token := c.Connect(); token.Wait() && token.Error() != nil {
@@ -54,9 +62,9 @@ func Mqtt_init() {
 		os.Exit(1)
 	}
 
-	// Publish a message
+	// Publish a test message
 	// 	Publish(topic string, qos byte, retained bool, payload interface{}) Token
-	token := c.Publish("gurupada/1", 0, false, "Hello Aseem")
+	token := c.Publish("gurupada/1", 0, false, "Gurupada IOT starting")
 	token.Wait()
 	fmt.Println("MQTT init completed...")
 }
