@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/aseemsethi/iotus/db"
 	"github.com/aseemsethi/iotus/utils"
 	"net/http"
 )
@@ -17,8 +18,12 @@ func api(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	fmt.Printf("\nIOTUS Tool Starting..")
+
 	utils.Mqtt_init()
 	utils.Mqtt_set_routing()
+
+	db.Db_init()
+
 	http.HandleFunc("/api", api)
 	http.ListenAndServe(":8090", nil)
 }

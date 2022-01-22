@@ -1,0 +1,31 @@
+{
+   "customers":[
+      {
+          "cid":"100",
+          "location":"bangalore"
+          "gws":[
+              {
+                "gwid":"10001",
+                "sensors":[
+                    {
+                        "sensorid":"10001",
+                    },
+                    {
+                        "sensorid":"10002",
+                    }
+              },
+              {
+                "gwid":"10001",
+              }
+              ]
+      },
+      {
+          "cid":"101",
+          "location":"mangalore"
+      },
+      {
+          "cid":"102",
+          "location":"mysore"
+      }
+   ]
+}
