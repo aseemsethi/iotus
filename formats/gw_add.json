@@ -1,9 +1,7 @@
-"gw":
-  {
-    "custid"     : "100"
-    "gwid"     : "100",
-    "type"     : "esp32" 
-    "location" : "bangalore"
-    "ip"       : "1.1.1.1"
-  }
-  
+{ 
+"custid"   :  100,
+"gwid"     : 10001,
+"type"     : "esp32", 
+"location" : "bangalore",
+"ip"       : "1.1.1.1"
+}
