@@ -5,6 +5,7 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"os"
+	"strings"
 )
 
 /* MY SQL Tables
@@ -22,6 +23,8 @@ type Customer struct {
 	Location string `json:"location"`
 	Address  string `json:"adress"`
 }
+
+var customers []Customer
 
 var dbg *sql.DB
 
@@ -59,30 +62,41 @@ func Db_init() {
 
 	// read in the JSON file for customer tables- this is static file
 	Db_customer_add(100, "PMOA", "Bangalore", "Varthur Rd")
+}
 
-	results, err := db.Query("SELECT * FROM customer")
+// This function basically ensres that all data structures are in order for all
+// customers and their gw/sensors after every update
+func normalizeTables() {
+	fmt.Println("normalizeTables called..")
+	results, err := dbg.Query("SELECT * FROM customer")
 	if err != nil {
-		panic(err.Error()) // proper error handling instead of panic in your app
+		panic(err.Error())
 	}
 	for results.Next() {
 		var customer Customer
 		err = results.Scan(&customer.Cid, &customer.Name, &customer.Location, &customer.Address)
 		if err != nil {
-			panic(err.Error()) // proper error handling instead of panic in your app
+			panic(err.Error())
 		}
 		// and then print out the tag's Name attribute
 		fmt.Printf("%v", customer)
+		customers = append(customers, customer)
 	}
+	fmt.Printf("\n Final Customers DB: \n%v", customers)
 }
 
 func Db_customer_add(cid int, name string, location string, address string) {
 	fmt.Println("Adding customer row...", cid, name, location, address)
 	insert, err := dbg.Query("INSERT INTO customer VALUES ( ?,?,?,?)", cid, name, location, address)
-	//insert, err := dbg.Query("INSERT INTO customer VALUES ( 100, 'Aseem', 'Blr', 'Varthur')")
 	if err != nil {
-		panic(err.Error()) // proper error handling instead of panic in your app
+		fmt.Println("DB_customer_add: ", err.Error())
+		if strings.Contains(err.Error(), "Duplicate") {
+			fmt.Println("\n Duplicate customer entry - ignore")
+		}
+	} else {
+		defer insert.Close()
 	}
-	defer insert.Close()
+	normalizeTables()
 }
 
 func Db_gw_add(cid int, gwid int, typegw string, location string, ip string) {
@@ -92,4 +106,5 @@ func Db_gw_add(cid int, gwid int, typegw string, location string, ip string) {
 		panic(err.Error()) // proper error handling instead of panic in your app
 	}
 	defer insert.Close()
+	normalizeTables()
 }
