@@ -3,6 +3,7 @@ package utils
 import (
 	"encoding/json"
 	"fmt"
+	db "github.com/aseemsethi/iotus/db"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
 
@@ -40,6 +41,7 @@ var gwMqttRcv mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
 	}
 	fmt.Printf("\n\n GW JSON recvd:::: %v", gw1)
 	// Save this GW in the DB now
+	db.Db_gw_add(gw1.CustomerId, gw1.GwId, gw1.Type, gw1.Location, gw1.IP)
 }
 
 type sensor struct {
