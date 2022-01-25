@@ -44,7 +44,7 @@ func Mqtt_disconnect() {
 // https://pkg.go.dev/github.com/eclipse/paho.mqtt.golang#section-readme
 func Mqtt_init() {
 	fmt.Printf("\n Mqtt_init called")
-	mqtt.DEBUG = log.New(os.Stdout, "", 0)
+	//mqtt.DEBUG = log.New(os.Stdout, "", 0)
 	mqtt.ERROR = log.New(os.Stdout, "", 0)
 	opts := mqtt.NewClientOptions().AddBroker(CONFIG_BROKER_URL).SetClientID("gp_client")
 	opts.SetUsername("draadmin")

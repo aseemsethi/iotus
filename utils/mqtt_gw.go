@@ -7,21 +7,19 @@ import (
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
 
-type gw struct {
-	CustomerId int    `json:"custid"`
-	GwId       int    `json:"gwid"`
-	Type       string `json:"type"`
-	Location   string `json:"location"`
-	IP         string `json:"ip"`
+type Gw struct {
+	GwId     int    `json:"gwid"`
+	Type     string `json:"type"`
+	Location string `json:"location"`
+	IP       string `json:"ip"`
 }
 
-var gw1 gw
+var gw1 Gw
 
 /*
  * The GW should send a publish message to gurupada/gw/add with the following body
  * for it to add itself to the DB tree
  * {
-	"custid"   :  100,
 	"gwid"     : 10001,
 	"type"     : "esp32",
 	"location" : "bangalore",
@@ -40,8 +38,9 @@ var gwMqttRcv mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
 		panic(err)
 	}
 	fmt.Printf("\n\n GW JSON recvd:::: %v", gw1)
-	// Save this GW in the DB now
-	db.Db_gw_add(gw1.CustomerId, gw1.GwId, gw1.Type, gw1.Location, gw1.IP)
+	// Save this GW in the DB now - 1st param cid is null, since GW does not send
+	// us the customer id. It does know it.
+	db.Db_gw_add(0, gw1.GwId, gw1.Type, gw1.Location, gw1.IP)
 }
 
 type sensor struct {
