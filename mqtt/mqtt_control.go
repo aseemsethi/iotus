@@ -17,14 +17,14 @@ type Gw struct {
 var gw1 Gw
 
 /*
- * The GW should send a publish message to gurupada/gw/add with the following body
- * for it to add itself to the DB tree
- * {
+ * The GW should send a publish message every 15 min to gurupada/gw/add
+ * with the following body for it to update data about itself in the DB tree
+ {
 	"gwid"     : 10010,
 	"type"     : "esp32",
 	"location" : "bangalore",
 	"ip"       : "1.1.1.1"
- * }
+ }
 */
 // Sample output of program -
 // GW JSON recvd:::: {10010 esp32 bangalore 1.1.1.1}
@@ -52,17 +52,17 @@ type sensor struct {
 var sensor1 sensor
 
 /*
- * The GW should send a publish message to gurupada/sensor/add with the following body
- * for it to add sensors to the DB tree under its GW struct
- * {
+ * The GW should send a publish message every 15 min to gurupada/sensor/add
+ * with the following body to update sensors data in the DB tree under GW struct
+ {
 	"gwid"     : 10010,
 	"sensorid" : 1001001,
 	"type"     : "temp"
 	"protocol" : "ble"
-* }
+}
 */
 // Sample output of program -
-// GW JSON recvd:::: {100 10001 1000101 temp}
+// GW JSON recvd:::: {10001 1000101 temp ble}
 var sensorMqttRcv mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
 	fmt.Printf("\n Recvd Add Sensor Control msg..")
 	fmt.Printf("\nTOPIC: %s", msg.Topic())

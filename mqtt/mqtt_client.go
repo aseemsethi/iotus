@@ -19,13 +19,15 @@ var f mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
 
 // ALL MQTT Topics uplink/downlink are described here
 func Mqtt_set_routing() {
-	// ***** UPLINK *****
+	// ***** UPLINK ***** both gw and sensor add messages to be sent every 15 min by gw
+	// This acts as a heartbeat as well as to rebuild the cloud DB in the evernt of a
+	// restart.
 	// Update GW Info - Control packets receive handler setup
 	if token := c.Subscribe("gurupada/gw/add", 0, gwMqttRcv); token.Wait() && token.Error() != nil {
 		fmt.Println(token.Error())
 		os.Exit(1)
 	}
-	// Update SENSORS Info to GW - Control packets receive handler setup
+	// Update SENSORS Info - Control packets receive handler setup
 	if token := c.Subscribe("gurupada/sensor/add", 0, sensorMqttRcv); token.Wait() && token.Error() != nil {
 		fmt.Println(token.Error())
 		os.Exit(1)
