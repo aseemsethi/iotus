@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/aseemsethi/iotus/db"
-	"github.com/aseemsethi/iotus/utils"
+	"github.com/aseemsethi/iotus/mqtt"
 	"net/http"
 )
 
