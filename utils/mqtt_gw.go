@@ -20,7 +20,7 @@ var gw1 Gw
  * The GW should send a publish message to gurupada/gw/add with the following body
  * for it to add itself to the DB tree
  * {
-	"gwid"     : 10001,
+	"gwid"     : 10010,
 	"type"     : "esp32",
 	"location" : "bangalore",
 	"ip"       : "1.1.1.1"
@@ -43,10 +43,10 @@ var gwMqttRcv mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
 }
 
 type sensor struct {
-	CustomerId int    `json:"custid"`
-	GwId       int    `json:"gwid"`
-	SensorId   int    `json:"sensorid"`
-	Type       string `json:"type"`
+	GwId     int    `json:"gwid"`
+	SensorId int    `json:"sensorid"`
+	Type     string `json:"type"`
+	Protocol string `json:"protocol"`
 }
 
 var sensor1 sensor
@@ -55,10 +55,10 @@ var sensor1 sensor
  * The GW should send a publish message to gurupada/sensor/add with the following body
  * for it to add sensors to the DB tree under its GW struct
  * {
-	"custid"   : 100,
-	"gwid"     : 10001,
-	"sensorid" : 1000101,
+	"gwid"     : 10010,
+	"sensorid" : 1001001,
 	"type"     : "temp"
+	"protocol" : "ble"
 * }
 */
 // Sample output of program -
@@ -73,5 +73,6 @@ var sensorMqttRcv mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Messag
 		panic(err)
 	}
 	fmt.Printf("\n\n SENSOR JSON recvd:::: %v", sensor1)
-	// Save this Sensor under the GW in the DB now
+	// Update Sensor under the GW in the DB now
+	db.Db_sensor_add(sensor1.GwId, sensor1.SensorId, sensor1.Type, sensor1.Protocol)
 }

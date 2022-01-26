@@ -9,15 +9,6 @@ import (
 	"os"
 )
 
-/* MY SQL Tables
-mysql> CREATE TABLE customer (cid INT UNSIGNED NOT NULL PRIMARY KEY,
-name VARCHAR(20) NOT NULL, location VARCHAR(20) NOT NULL, address VARCHAR(20) NOT NULL);
-mysql> CREATE TABLE gw (gwid INT UNSIGNED NOT NULL PRIMARY KEY,
-typegw VARCHAR(20) NOT NULL, location VARCHAR(20) NOT NULL, ip VARCHAR(20) NOT NULL);
-mysql> CREATE TABLE sensor (cid INT UNSIGNED NOT NULL, gwid INT UNSIGNED NOT NULL,
-sensorid INT UNSIGNED NOT NULL, type VARCHAR(20) NOT NULL);
-*/
-
 type Customer struct {
 	Cid      int        `json:"cid"`
 	Name     string     `json:"name"`
@@ -27,10 +18,17 @@ type Customer struct {
 }
 
 type Gateway struct {
-	GwId     int    `json:"gwid"`
-	TypeGw   string `json:"type"`
-	Location string `json:"location"`
-	IP       string `json:"ip"`
+	GwId     int      `json:"gwid"`
+	TypeGw   string   `json:"type"`
+	Location string   `json:"location"`
+	IP       string   `json:"ip"`
+	Sensors  []Sensor `json:"sensor"`
+}
+
+type Sensor struct {
+	SensorId int    `json:"sensorid"`
+	Type     string `json:"type"`
+	Protocol string `json:"protocol"`
 }
 
 type Customers struct {
@@ -75,6 +73,27 @@ func Db_gw_add(gwid int, typegw string, location string, ip string) {
 					fmt.Printf("\n%+v", c.Customers[j])
 				}
 				return
+			}
+		}
+	}
+	fmt.Printf("\n GW %d not updated in any customer row", gwid)
+}
+
+func Db_sensor_add(gwid int, sensorid int, typeSensor string, protocol string) {
+	fmt.Println("Updating gw row..")
+	for i, v := range c.Customers {
+		for i1, v1 := range v.Gw {
+			for i2, _ := range v1.Sensors {
+				if v1.GwId == gwid {
+					fmt.Printf("\n Sensor %d under GW %d updated in customer %d",
+						sensorid, gwid, v.Cid)
+					c.Customers[i].Gw[i1].Sensors[i2].Type = typeSensor
+					c.Customers[i].Gw[i1].Sensors[i2].Protocol = protocol
+					for j, _ := range c.Customers {
+						fmt.Printf("\n%+v", c.Customers[j])
+					}
+					return
+				}
 			}
 		}
 	}

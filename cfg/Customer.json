@@ -10,7 +10,17 @@
             "gwid"      : 10010, 
             "type"      : "ESP32", 
             "location"  : "Bangalore", 
-            "ip"        : "0.0.0.0"
+            "ip"        : "0.0.0.0",
+            "sensor" : [
+                 {
+                "sensorid"      : 1001001, 
+                "type"      : "temperature"
+                },
+                {
+                "sensorid"      : 1001002, 
+                "type"      : "onoff"
+                }
+                ]
             },
             {
             "gwid"      : 10020, 
@@ -20,6 +30,7 @@
             }
         ]
     },
+    
     { 
         "cid"   : 200,
         "name"     : "Prestige",
