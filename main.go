@@ -5,6 +5,7 @@ import (
 	"github.com/aseemsethi/iotus/db"
 	"github.com/aseemsethi/iotus/httpG"
 	"github.com/aseemsethi/iotus/mqtt"
+	"github.com/aseemsethi/iotus/sched"
 	"net/http"
 )
 
@@ -15,6 +16,7 @@ func main() {
 	utils.Mqtt_set_routing()
 
 	db.Db_init()
+	go sched.SchedInit()
 
 	http.HandleFunc("/api/customers", httpG.ApiCustomers)
 	http.ListenAndServe(":8090", nil)
