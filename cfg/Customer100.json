@@ -1,7 +1,0 @@
-{ 
-"custid"   :  100,
-"gwid"     : 10001,
-"type"     : "esp32", 
-"location" : "bangalore",
-"ip"       : "1.1.1.1"
-}

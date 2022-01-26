@@ -27,7 +27,7 @@ var gw1 Gw
  * }
 */
 // Sample output of program -
-// GW JSON recvd:::: {100 100 esp32 bangalore 1.1.1.1}
+// GW JSON recvd:::: {10010 esp32 bangalore 1.1.1.1}
 var gwMqttRcv mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
 	fmt.Printf("\n Recvd Add GW Control msg..")
 	fmt.Printf("\nTOPIC: %s", msg.Topic())
@@ -37,10 +37,9 @@ var gwMqttRcv mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("\n\n GW JSON recvd:::: %v", gw1)
-	// Save this GW in the DB now - 1st param cid is null, since GW does not send
-	// us the customer id. It does know it.
-	db.Db_gw_add(0, gw1.GwId, gw1.Type, gw1.Location, gw1.IP)
+	fmt.Printf("\n GW JSON recvd:::: %v", gw1)
+	// Update additional info like IP etc, info recvd for this GW in the DB
+	db.Db_gw_add(gw1.GwId, gw1.Type, gw1.Location, gw1.IP)
 }
 
 type sensor struct {

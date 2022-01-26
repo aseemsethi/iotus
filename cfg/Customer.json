@@ -1,0 +1,46 @@
+{
+    "customers" : [
+    { 
+        "cid"   : 100,
+        "name"     : "PMOA",
+        "location" : "DG Room",
+        "address"  : "Varthur Rd",
+        "gateway" : [
+            {
+            "gwid"      : 10010, 
+            "type"      : "ESP32", 
+            "location"  : "Bangalore", 
+            "ip"        : "0.0.0.0"
+            },
+            {
+            "gwid"      : 10020, 
+            "type"      : "ESP32", 
+            "location"  : "Bangalore", 
+            "ip"        : "0.0.0.0"
+            }
+        ]
+    },
+    { 
+        "cid"   : 200,
+        "name"     : "Prestige",
+        "location" : "DG Room",
+        "address"  : "Varthur Rd",
+        "gateway" : [
+            {
+            "gwid"      : 20010, 
+            "type"      : "ESP32", 
+            "location"  : "Bangalore", 
+            "ip"        : "0.0.0.0"
+            },
+            {
+            "gwid"      : 20020, 
+            "type"      : "ESP32", 
+            "location"  : "Bangalore", 
+            "ip"        : "0.0.0.0"
+            }
+        ]
+    }
+    ]
+}
+
+
