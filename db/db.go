@@ -10,11 +10,11 @@ import (
 )
 
 type Customer struct {
-	Cid      int        `json:"cid"`
-	Name     string     `json:"name"`
-	Location string     `json:"location"`
-	Address  string     `json:"address"`
-	Gw       [2]Gateway `json:"gateway"`
+	Cid      int       `json:"cid"`
+	Name     string    `json:"name"`
+	Location string    `json:"location"`
+	Address  string    `json:"address"`
+	Gw       []Gateway `json:"gateway"`
 }
 
 type Gateway struct {
@@ -35,7 +35,7 @@ type Customers struct {
 	Customers []Customer `json:"customers"`
 }
 
-var c Customers
+var C Customers
 
 var dbg *sql.DB
 
@@ -54,23 +54,23 @@ func readCustomerFile() {
 	defer jsonFile.Close()
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 	//fmt.Println("JSON File: ", byteValue)
-	json.Unmarshal(byteValue, &c)
-	for i, _ := range c.Customers {
-		fmt.Printf("\n%+v", c.Customers[i])
+	json.Unmarshal(byteValue, &C)
+	for i, _ := range C.Customers {
+		fmt.Printf("\n%+v", C.Customers[i])
 	}
 }
 
 func Db_gw_add(gwid int, typegw string, location string, ip string) {
 	fmt.Println("Updating gw row..")
-	for i, v := range c.Customers {
+	for i, v := range C.Customers {
 		for i1, v1 := range v.Gw {
 			if v1.GwId == gwid {
 				fmt.Printf("\n GW %d updated in customer %d", gwid, v.Cid)
-				c.Customers[i].Gw[i1].TypeGw = typegw
-				c.Customers[i].Gw[i1].Location = location
-				c.Customers[i].Gw[i1].IP = ip
-				for j, _ := range c.Customers {
-					fmt.Printf("\n%+v", c.Customers[j])
+				C.Customers[i].Gw[i1].TypeGw = typegw
+				C.Customers[i].Gw[i1].Location = location
+				C.Customers[i].Gw[i1].IP = ip
+				for j, _ := range C.Customers {
+					fmt.Printf("\n%+v", C.Customers[j])
 				}
 				return
 			}
@@ -81,16 +81,16 @@ func Db_gw_add(gwid int, typegw string, location string, ip string) {
 
 func Db_sensor_add(gwid int, sensorid int, typeSensor string, protocol string) {
 	fmt.Println("Updating gw row..")
-	for i, v := range c.Customers {
+	for i, v := range C.Customers {
 		for i1, v1 := range v.Gw {
 			for i2, _ := range v1.Sensors {
 				if v1.GwId == gwid {
 					fmt.Printf("\n Sensor %d under GW %d updated in customer %d",
 						sensorid, gwid, v.Cid)
-					c.Customers[i].Gw[i1].Sensors[i2].Type = typeSensor
-					c.Customers[i].Gw[i1].Sensors[i2].Protocol = protocol
-					for j, _ := range c.Customers {
-						fmt.Printf("\n%+v", c.Customers[j])
+					C.Customers[i].Gw[i1].Sensors[i2].Type = typeSensor
+					C.Customers[i].Gw[i1].Sensors[i2].Protocol = protocol
+					for j, _ := range C.Customers {
+						fmt.Printf("\n%+v", C.Customers[j])
 					}
 					return
 				}
