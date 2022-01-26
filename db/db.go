@@ -26,9 +26,11 @@ type Gateway struct {
 }
 
 type Sensor struct {
+	GwId     int    `json:"gwid"`
 	SensorId int    `json:"sensorid"`
 	Type     string `json:"type"`
 	Protocol string `json:"protocol"`
+	RW       string `json:"rw"`
 }
 
 type Customers struct {
@@ -79,7 +81,7 @@ func Db_gw_add(gwid int, typegw string, location string, ip string) {
 	fmt.Printf("\n GW %d not updated in any customer row", gwid)
 }
 
-func Db_sensor_add(gwid int, sensorid int, typeSensor string, protocol string) {
+func Db_sensor_add(gwid int, sensorid int, typeSensor string, protocol string, rw string) {
 	fmt.Println("Updating gw row..")
 	for i, v := range C.Customers {
 		for i1, v1 := range v.Gw {
@@ -89,6 +91,7 @@ func Db_sensor_add(gwid int, sensorid int, typeSensor string, protocol string) {
 						sensorid, gwid, v.Cid)
 					C.Customers[i].Gw[i1].Sensors[i2].Type = typeSensor
 					C.Customers[i].Gw[i1].Sensors[i2].Protocol = protocol
+					C.Customers[i].Gw[i1].Sensors[i2].RW = rw
 					for j, _ := range C.Customers {
 						fmt.Printf("\n%+v", C.Customers[j])
 					}

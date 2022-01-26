@@ -13,12 +13,16 @@
             "ip"        : "0.0.0.0",
             "sensor" : [
                  {
+                "gwid"      : 10010, 
                 "sensorid"      : 1001001, 
-                "type"      : "temperature"
+                "type"      : "temperature",
+                "rw" : "read"
                 },
                 {
+                "gwid"      : 10010, 
                 "sensorid"      : 1001002, 
-                "type"      : "onoff"
+                "type"      : "onoff",
+                "rw" : "write"
                 }
                 ]
             },

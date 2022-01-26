@@ -7,14 +7,7 @@ import (
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
 
-type Gw struct {
-	GwId     int    `json:"gwid"`
-	Type     string `json:"type"`
-	Location string `json:"location"`
-	IP       string `json:"ip"`
-}
-
-var gw1 Gw
+var gw1 db.Gateway
 
 /*
  * The GW should send a publish message every 15 min to gurupada/gw/add
@@ -26,7 +19,6 @@ var gw1 Gw
 	"ip"       : "1.1.1.1"
  }
 */
-// Sample output of program -
 // GW JSON recvd:::: {10010 esp32 bangalore 1.1.1.1}
 var gwMqttRcv mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
 	fmt.Printf("\n Recvd Add GW Control msg..")
@@ -39,17 +31,10 @@ var gwMqttRcv mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
 	}
 	fmt.Printf("\n GW JSON recvd:::: %v", gw1)
 	// Update additional info like IP etc, info recvd for this GW in the DB
-	db.Db_gw_add(gw1.GwId, gw1.Type, gw1.Location, gw1.IP)
+	db.Db_gw_add(gw1.GwId, gw1.TypeGw, gw1.Location, gw1.IP)
 }
 
-type sensor struct {
-	GwId     int    `json:"gwid"`
-	SensorId int    `json:"sensorid"`
-	Type     string `json:"type"`
-	Protocol string `json:"protocol"`
-}
-
-var sensor1 sensor
+var sensor1 db.Sensor
 
 /*
  * The GW should send a publish message every 15 min to gurupada/sensor/add
@@ -57,12 +42,12 @@ var sensor1 sensor
  {
 	"gwid"     : 10010,
 	"sensorid" : 1001001,
-	"type"     : "temp"
-	"protocol" : "ble"
+	"type"     : "sonoff",
+	"protocol" : "ble",
+	"rw"       : "write"
 }
 */
-// Sample output of program -
-// GW JSON recvd:::: {10001 1000101 temp ble}
+// GW JSON recvd:::: {10001 1000101 temp ble write}
 var sensorMqttRcv mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
 	fmt.Printf("\n Recvd Add Sensor Control msg..")
 	fmt.Printf("\nTOPIC: %s", msg.Topic())
@@ -74,5 +59,5 @@ var sensorMqttRcv mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Messag
 	}
 	fmt.Printf("\n\n SENSOR JSON recvd:::: %v", sensor1)
 	// Update Sensor under the GW in the DB now
-	db.Db_sensor_add(sensor1.GwId, sensor1.SensorId, sensor1.Type, sensor1.Protocol)
+	db.Db_sensor_add(sensor1.GwId, sensor1.SensorId, sensor1.Type, sensor1.Protocol, sensor1.RW)
 }
