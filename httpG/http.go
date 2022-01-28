@@ -14,11 +14,17 @@ func ApiCustomers(w http.ResponseWriter, req *http.Request) {
 		}
 	}
 	param1 := req.URL.Query().Get("cid")
-	fmt.Printf("Query param cid is %s", param1)
-	for _, v := range db.C.Customers {
-		if strconv.Itoa(v.Cid) == param1 {
-			str := fmt.Sprintf("%#v", v)
-			fmt.Fprintf(w, str)
+	if param1 != "" {
+		fmt.Printf("Query param cid is %s", param1)
+		for _, v := range db.C.Customers {
+			if strconv.Itoa(v.Cid) == param1 {
+				str := fmt.Sprintf("%#v", v)
+				fmt.Fprintf(w, str)
+			}
 		}
+	} else {
+		fmt.Printf("Query param cid is nil")
+		str := fmt.Sprintf("%#v", db.C.Customers)
+		fmt.Fprintf(w, str)
 	}
 }
