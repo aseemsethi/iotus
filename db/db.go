@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"os"
 	"strconv"
+	"time"
 )
 
 type Customer struct {
@@ -137,6 +138,8 @@ func Db_telemetry_update(t Telemerty) {
 
 func Db_telemetry_save(cid int, gwid string, sensorid string, data string) {
 	fmt.Printf("\n DB telemerty save to file..")
+	currentTime := time.Now()
+	tm := currentTime.Format("2006-01-02 15:04:05")
 	// If the file doesn't exist, create it, or append to the file
 	filename := fmt.Sprintf("stats/customer-%s", strconv.Itoa(cid))
 	fmt.Sprintf("\n Writing stats to file %s", filename)
@@ -144,7 +147,8 @@ func Db_telemetry_save(cid int, gwid string, sensorid string, data string) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	if _, err := f.Write([]byte(gwid + ":" + sensorid + ":" + data + "\n")); err != nil {
+	if _, err := f.Write([]byte(tm + ":" + gwid + ":" +
+		sensorid + ":" + data + "\n")); err != nil {
 		fmt.Println(err)
 	}
 	if err := f.Close(); err != nil {
