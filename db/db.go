@@ -7,6 +7,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"io/ioutil"
 	"os"
+	"strconv"
 )
 
 type Customer struct {
@@ -111,7 +112,7 @@ func Db_sensor_add(gwid string, sensorid string, typeSensor string, protocol str
 }
 
 func Db_telemetry_update(t Telemerty) {
-	fmt.Println("Updating telemerty data..")
+	fmt.Printf("\nUpdating telemerty data..")
 	for i, v := range C.Customers {
 		for i1, v1 := range v.Gw {
 			if v1.GwId == t.GwId {
@@ -120,6 +121,11 @@ func Db_telemetry_update(t Telemerty) {
 						fmt.Printf("\n Sensor %d under GW %d updated in customer %d to - %s",
 							v2.SensorId, v1.GwId, v.Cid, t.Data)
 						C.Customers[i].Gw[i1].Sensors[i2].State = t.Data
+						// Add Telemetry data line to customer file - customer-<cid>.stats
+						// Line Format - cid, gwid, sensorid, data
+						Db_telemetry_save(
+							C.Customers[i].Cid, C.Customers[i].Gw[i1].GwId,
+							C.Customers[i].Gw[i1].Sensors[i2].SensorId, t.Data)
 						return
 					}
 				}
@@ -127,4 +133,22 @@ func Db_telemetry_update(t Telemerty) {
 		}
 	}
 	fmt.Printf("\n GW %d not updated in any customer row", t.GwId)
+}
+
+func Db_telemetry_save(cid int, gwid string, sensorid string, data string) {
+	fmt.Printf("\n DB telemerty save to file..")
+	// If the file doesn't exist, create it, or append to the file
+	filename := fmt.Sprintf("stats/customer-%s", strconv.Itoa(cid))
+	fmt.Sprintf("\n Writing stats to file %s", filename)
+	f, err := os.OpenFile(filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		fmt.Println(err)
+	}
+	if _, err := f.Write([]byte(gwid + ":" + sensorid + ":" + data + "\n")); err != nil {
+		fmt.Println(err)
+	}
+	if err := f.Close(); err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("..done")
 }
