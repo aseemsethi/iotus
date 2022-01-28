@@ -31,6 +31,7 @@ type Sensor struct {
 	Type     string `json:"type"`
 	Protocol string `json:"protocol"`
 	RW       string `json:"rw"`
+	State    string // "unknown", "open", "close", etc
 }
 
 type Customers struct {
@@ -111,14 +112,16 @@ func Db_sensor_add(gwid string, sensorid string, typeSensor string, protocol str
 
 func Db_telemetry_update(t Telemerty) {
 	fmt.Println("Updating telemerty data..")
-	for _, v := range C.Customers {
-		for _, v1 := range v.Gw {
-			for _, v2 := range v1.Sensors {
-				if v1.GwId == t.GwId {
-					fmt.Printf("\n Sensor %d under GW %d updated in customer %d",
-						v2.SensorId, v2.GwId, v.Cid)
-					//C.Customers[i].Gw[i1].Sensors[i2].Type = typeSensor
-					return
+	for i, v := range C.Customers {
+		for i1, v1 := range v.Gw {
+			if v1.GwId == t.GwId {
+				for i2, v2 := range v1.Sensors {
+					if v2.SensorId == t.SensorId {
+						fmt.Printf("\n Sensor %d under GW %d updated in customer %d to - %s",
+							v2.SensorId, v1.GwId, v.Cid, t.Data)
+						C.Customers[i].Gw[i1].Sensors[i2].State = t.Data
+						return
+					}
 				}
 			}
 		}

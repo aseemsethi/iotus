@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/aseemsethi/iotus/db"
 	"net/http"
+	"strconv"
 )
 
 func ApiCustomers(w http.ResponseWriter, req *http.Request) {
@@ -12,6 +13,12 @@ func ApiCustomers(w http.ResponseWriter, req *http.Request) {
 			fmt.Fprintf(w, "%v: %v\n", name, h)
 		}
 	}
-	str := fmt.Sprintf("%#v", db.C.Customers)
-	fmt.Fprintf(w, str)
+	param1 := req.URL.Query().Get("cid")
+	fmt.Printf("Query param cid is %s", param1)
+	for _, v := range db.C.Customers {
+		if strconv.Itoa(v.Cid) == param1 {
+			str := fmt.Sprintf("%#v", v)
+			fmt.Fprintf(w, str)
+		}
+	}
 }
