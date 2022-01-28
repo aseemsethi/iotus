@@ -3,16 +3,11 @@ package utils
 import (
 	"encoding/json"
 	"fmt"
+	db "github.com/aseemsethi/iotus/db"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
 
-type Telemerty struct {
-	GwId     string `json:"gwid"`
-	SensorId string `json:"sensorid"`
-	Data     string `json:"data"`
-}
-
-var t1 Telemerty
+var t1 db.Telemerty
 
 // Telemetry data - Data Path - All GWs will send Telemetry data to gurupada/data/<custid>
 var telemetryDataRecv mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
@@ -26,4 +21,5 @@ var telemetryDataRecv mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Me
 	}
 	fmt.Printf("\n GW JSON recvd:::: %v", t1)
 	// Save to customer specific file
+	db.Db_telemetry_update(t1)
 }

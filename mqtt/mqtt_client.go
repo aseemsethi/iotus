@@ -32,14 +32,14 @@ func Mqtt_set_routing() {
 		fmt.Println(token.Error())
 		os.Exit(1)
 	}
-	// Telemetry data - Data Path - All GWs will send Telemetry data to gurupada/data/<custid>
+	// Telemetry data - Data Path - All GWs will send Telemetry data to gurupada/data/<gwid>
 	if token := c.Subscribe("gurupada/data/#", 0, telemetryDataRecv); token.Wait() && token.Error() != nil {
 		fmt.Println(token.Error())
 		os.Exit(1)
 	}
 
 	// ***** DOWNLINK *****
-	// The custid would be sent to the GWs using MQTT send channel - gurupada/<gwid>/downlink topic
+	// The custid would be sent to the GWs using MQTT send channel - gurupada/<gwid>/data topic
 	// All GWs need to listen on to this channel to get info
 	// Data JSON Format:
 	// { "custid":100, "cmdType": "http|mqtt", "cmdDst": "<url>|<mqttTopic>, "cmdVal": <data> }
@@ -77,14 +77,14 @@ func Mqtt_init() {
 
 	// Subscribe to a topic
 	// 	Subscribe(topic string, qos byte, callback MessageHandler) Token
-	if token := c.Subscribe("gurupada/#", 0, nil); token.Wait() && token.Error() != nil {
-		fmt.Println(token.Error())
-		os.Exit(1)
-	}
+	//if token := c.Subscribe("gurupada/#", 0, nil); token.Wait() && token.Error() != nil {
+	//	fmt.Println(token.Error())
+	//	os.Exit(1)
+	//}
 
 	// Publish a test message
 	// 	Publish(topic string, qos byte, retained bool, payload interface{}) Token
-	token := c.Publish("gurupada/1", 0, false, "Gurupada IOT starting")
-	token.Wait()
+	// token := c.Publish("gurupada/1", 0, false, "Gurupada IOT starting")
+	// token.Wait()
 	fmt.Println("MQTT init completed...")
 }

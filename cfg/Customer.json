@@ -7,14 +7,14 @@
         "address"  : "Varthur Rd",
         "gateway" : [
             {
-            "gwid"      : "10010", 
+            "gwid"      : "cc50e3", 
             "type"      : "ESP32", 
             "location"  : "Bangalore", 
             "ip"        : "0.0.0.0",
             "sensor" : [
                  {
-                "gwid"      : "10010", 
-                "sensorid"  : "1001001", 
+                "gwid"      : "cc50e3", 
+                "sensorid"  : "f6e01a", 
                 "type"      : "temperature",
                 "rw" : "read"
                 },
@@ -42,7 +42,7 @@
         "address"  : "Varthur Rd",
         "gateway" : [
             {
-            "gwid"      : "cc50e3", 
+            "gwid"      : "20010", 
             "type"      : "ESP32", 
             "location"  : "Bangalore", 
             "ip"        : "0.0.0.0"

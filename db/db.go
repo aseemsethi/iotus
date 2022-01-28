@@ -39,6 +39,12 @@ type Customers struct {
 
 var C Customers
 
+type Telemerty struct {
+	GwId     string `json:"gwid"`
+	SensorId string `json:"sensorid"`
+	Data     string `json:"data"`
+}
+
 var dbg *sql.DB
 
 func Db_init() {
@@ -101,4 +107,21 @@ func Db_sensor_add(gwid string, sensorid string, typeSensor string, protocol str
 		}
 	}
 	fmt.Printf("\n GW %d not updated in any customer row", gwid)
+}
+
+func Db_telemetry_update(t Telemerty) {
+	fmt.Println("Updating telemerty data..")
+	for _, v := range C.Customers {
+		for _, v1 := range v.Gw {
+			for _, v2 := range v1.Sensors {
+				if v1.GwId == t.GwId {
+					fmt.Printf("\n Sensor %d under GW %d updated in customer %d",
+						v2.SensorId, v2.GwId, v.Cid)
+					//C.Customers[i].Gw[i1].Sensors[i2].Type = typeSensor
+					return
+				}
+			}
+		}
+	}
+	fmt.Printf("\n GW %d not updated in any customer row", t.GwId)
 }
