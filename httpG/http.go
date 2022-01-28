@@ -7,6 +7,7 @@ import (
 	"strconv"
 )
 
+// Main HTTP GET
 func ApiCustomers(w http.ResponseWriter, req *http.Request) {
 	for name, headers := range req.Header {
 		for _, h := range headers {
