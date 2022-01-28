@@ -13,7 +13,7 @@ var gw1 db.Gateway
  * The GW should send a publish message every 15 min to gurupada/gw/add
  * with the following body for it to update data about itself in the DB tree
  {
-	"gwid"     : 10010,
+	"gwid"     : "10010",
 	"type"     : "esp32",
 	"location" : "bangalore",
 	"ip"       : "1.1.1.1"
@@ -40,8 +40,8 @@ var sensor1 db.Sensor
  * The GW should send a publish message every 15 min to gurupada/sensor/add
  * with the following body to update sensors data in the DB tree under GW struct
  {
-	"gwid"     : 10010,
-	"sensorid" : 1001001,
+	"gwid"     : "10010",
+	"sensorid" : "1001001",
 	"type"     : "sonoff",
 	"protocol" : "ble",
 	"rw"       : "write"

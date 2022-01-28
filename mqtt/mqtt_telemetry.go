@@ -7,12 +7,14 @@ import (
 )
 
 type Telemerty struct {
-	GwId int    `json:"gwid"`
-	Data string `json:"data"`
+	GwId     string `json:"gwid"`
+	SensorId string `json:"sensorid"`
+	Data     string `json:"data"`
 }
 
 var t1 Telemerty
 
+// Telemetry data - Data Path - All GWs will send Telemetry data to gurupada/data/<custid>
 var telemetryDataRecv mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
 	fmt.Printf("\n Recvd Add GW Control Telemerty msg..")
 	fmt.Printf("\nTOPIC: %s", msg.Topic())
