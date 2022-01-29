@@ -16,7 +16,7 @@ func ApiCustomers(w http.ResponseWriter, req *http.Request) {
 	}
 	param1 := req.URL.Query().Get("cid")
 	if param1 != "" {
-		fmt.Printf("Query param cid is %s", param1)
+		fmt.Printf("\nQuery param cid is %s", param1)
 		for _, v := range db.C.Customers {
 			if strconv.Itoa(v.Cid) == param1 {
 				str := fmt.Sprintf("%#v", v)

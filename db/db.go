@@ -12,17 +12,18 @@ import (
 )
 
 type Customer struct {
-	Cid      int       `json:"cid"`
-	Name     string    `json:"name"`
-	Location string    `json:"location"`
-	Address  string    `json:"address"`
-	Gw       []Gateway `json:"gateway"`
+	Cid         int       `json:"cid"`
+	Name        string    `json:"name"`
+	Location    string    `json:"location"`
+	Address     string    `json:"address"`
+	Gw          []Gateway `json:"gateway"`
+	LastUpdated time.Time
 }
 
 type Gateway struct {
-	GwId     string   `json:"gwid"`
-	TypeGw   string   `json:"type"`
-	Location string   `json:"location"`
+	GwId     string `json:"gwid"`
+	TypeGw   string `json:"type"`
+	Location string
 	IP       string   `json:"ip"`
 	Sensors  []Sensor `json:"sensor"`
 }
@@ -51,7 +52,7 @@ type Telemerty struct {
 var dbg *sql.DB
 
 func Db_init() {
-	fmt.Println("Initialize DB")
+	fmt.Printf("\nInitialize DB")
 	readCustomerFile()
 	fmt.Println("...Done")
 }
@@ -61,7 +62,7 @@ func readCustomerFile() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println("\nSuccessfully Opened Customer.json")
+	fmt.Printf("\nOpened Customer.json")
 	defer jsonFile.Close()
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 	//fmt.Println("JSON File: ", byteValue)
@@ -71,15 +72,17 @@ func readCustomerFile() {
 	}
 }
 
-func Db_gw_add(gwid string, typegw string, location string, ip string) {
+func Db_gw_add(gwid string, typegw string, ip string) {
 	fmt.Println("Updating gw row..")
+	loc, _ := time.LoadLocation("Asia/Kolkata")
+
 	for i, v := range C.Customers {
 		for i1, v1 := range v.Gw {
 			if v1.GwId == gwid {
 				fmt.Printf("\n GW %d updated in customer %d", gwid, v.Cid)
 				C.Customers[i].Gw[i1].TypeGw = typegw
-				C.Customers[i].Gw[i1].Location = location
 				C.Customers[i].Gw[i1].IP = ip
+				C.Customers[i].LastUpdated = time.Now().In(loc)
 				for j, _ := range C.Customers {
 					fmt.Printf("\n%+v", C.Customers[j])
 				}
