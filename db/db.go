@@ -72,7 +72,7 @@ func readCustomerFile() {
 	}
 }
 
-func Db_gw_add(gwid string, typegw string, ip string) {
+func Db_gw_add(gwid string, typegw string, ip string) int {
 	fmt.Println("Updating gw row..")
 	loc, _ := time.LoadLocation("Asia/Kolkata")
 
@@ -86,11 +86,12 @@ func Db_gw_add(gwid string, typegw string, ip string) {
 				for j, _ := range C.Customers {
 					fmt.Printf("\n%+v", C.Customers[j])
 				}
-				return
+				return v.Cid
 			}
 		}
 	}
 	fmt.Printf("\n GW %d not updated in any customer row", gwid)
+	return 0
 }
 
 func Db_sensor_add(gwid string, sensorid string, typeSensor string, protocol string, rw string) {

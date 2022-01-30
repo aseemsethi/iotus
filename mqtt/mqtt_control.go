@@ -5,6 +5,7 @@ import (
 	"fmt"
 	db "github.com/aseemsethi/iotus/db"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
+	"strconv"
 )
 
 var gw1 db.Gateway
@@ -30,7 +31,12 @@ var gwMqttRcv mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
 	}
 	fmt.Printf("\n GW JSON recvd:::: %v", gw1)
 	// Update additional info like IP etc, info recvd for this GW in the DB
-	db.Db_gw_add(gw1.GwId, gw1.TypeGw, gw1.IP)
+	cid := db.Db_gw_add(gw1.GwId, gw1.TypeGw, gw1.IP)
+	// Send this msg to the Android App waiting on gurupada/<custid>
+	sendTopic := fmt.Sprintf("gurupada/%s", strconv.Itoa(cid))
+	fmt.Printf("\nMQTT Assist: Send to %s, msg:%s", sendTopic, msg.Payload())
+	token := c.Publish(sendTopic, 0, false, msg.Payload())
+	token.Wait()
 }
 
 var sensor1 db.Sensor
