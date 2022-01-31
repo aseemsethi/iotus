@@ -30,10 +30,11 @@ var gwMqttRcv mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
 		panic(err)
 	}
 	fmt.Printf("\n GW JSON recvd:::: %v", gw1)
+
 	// Update additional info like IP etc, info recvd for this GW in the DB
 	cid := db.Db_gw_add(gw1.GwId, gw1.TypeGw, gw1.IP)
 	// Send this msg to the Android App waiting on gurupada/<custid>
-	sendTopic := fmt.Sprintf("gurupada/%s", strconv.Itoa(cid))
+	sendTopic := fmt.Sprintf("gurupada/%s/gw", strconv.Itoa(cid))
 	fmt.Printf("\nMQTT Assist: Send to %s, msg:%s", sendTopic, msg.Payload())
 	token := c.Publish(sendTopic, 0, false, msg.Payload())
 	token.Wait()
