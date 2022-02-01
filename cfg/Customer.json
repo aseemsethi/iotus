@@ -15,7 +15,7 @@
                  {
                 "gwid"      : "cc50e3", 
                 "sensorid"  : "f6e01a", 
-                "type"      : "temperature",
+                "type"      : "door",
                 "rw" : "read"
                 },
                 {

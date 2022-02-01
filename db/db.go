@@ -116,7 +116,7 @@ func Db_sensor_add(gwid string, sensorid string, typeSensor string, protocol str
 	fmt.Printf("\n GW %d not updated in any customer row", gwid)
 }
 
-func Db_telemetry_update(t Telemerty) {
+func Db_telemetry_update(t Telemerty) (int, string) {
 	fmt.Printf("\nUpdating telemerty data..")
 	for i, v := range C.Customers {
 		for i1, v1 := range v.Gw {
@@ -131,13 +131,14 @@ func Db_telemetry_update(t Telemerty) {
 						Db_telemetry_save(
 							C.Customers[i].Cid, C.Customers[i].Gw[i1].GwId,
 							C.Customers[i].Gw[i1].Sensors[i2].SensorId, t.Data)
-						return
+						return C.Customers[i].Cid, C.Customers[i].Gw[i1].Sensors[i2].Type
 					}
 				}
 			}
 		}
 	}
 	fmt.Printf("\n GW %d not updated in any customer row", t.GwId)
+	return 0, ""
 }
 
 func Db_telemetry_save(cid int, gwid string, sensorid string, data string) {

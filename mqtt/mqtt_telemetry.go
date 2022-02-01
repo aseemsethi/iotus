@@ -5,6 +5,7 @@ import (
 	"fmt"
 	db "github.com/aseemsethi/iotus/db"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
+	"strconv"
 )
 
 var t1 db.Telemerty
@@ -21,5 +22,11 @@ var telemetryDataRecv mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Me
 	}
 	fmt.Printf("\n GW JSON recvd:::: %v", t1)
 	// Save to customer specific file
-	db.Db_telemetry_update(t1)
+	cid, sensorType := db.Db_telemetry_update(t1)
+
+	// Send this msg to the Android App waiting on gurupada/<custid>
+	sendTopic := fmt.Sprintf("gurupada/%s/%s", strconv.Itoa(cid), sensorType)
+	fmt.Printf("\nMQTT Assist: Send to %s, msg:%s", sendTopic, msg.Payload())
+	token := c.Publish(sendTopic, 0, false, msg.Payload())
+	token.Wait()
 }
