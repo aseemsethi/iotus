@@ -1,0 +1,51 @@
+{
+    "customers" : [
+    { 
+    "cid"   : 100,
+    "gateway" : [
+        {
+        "gwid"      : "cc50e3", 
+        "sensor" : [
+            {
+            "sensorid"  : "f6e01a", 
+            "trigger"   : ">",
+            "compare"   : "40",
+            "action"    : "alarm"
+            },
+            {
+            "sensorid"  : "1001002", 
+            "trigger"   : "time",
+            "compare"   : "0900",
+            "action"    : "on"
+            },
+            {
+            "sensorid"  : "1001002", 
+            "trigger"   : "time",
+            "compare"   : "1700",
+            "action"    : "off"
+            }
+            ]
+        },
+        {
+        "gwid"      : "10020", 
+        "sensor" : [
+            {
+            "sensorid"  : "1002001"
+            },
+            {
+            "sensorid"  : "1002002" 
+            }
+            ]
+        }
+    ]
+    }, 
+        {
+        "cid"   : 200,
+        "gateway" : [
+            {
+            "gwid"      : "20010"
+            }
+            ]
+        }
+    ]
+}

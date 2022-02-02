@@ -2,9 +2,34 @@ package sched
 
 import (
 	"fmt"
-	"time"
 	//"github.com/aseemsethi/iotus/db"
+	"encoding/json"
+	"io/ioutil"
+	"os"
+	"time"
 )
+
+type CustomerT struct {
+	Cid int        `json:"cid"`
+	Gw  []GatewayT `json:"gateway"`
+}
+
+type GatewayT struct {
+	GwId    string    `json:"gwid"`
+	Sensors []SensorT `json:"sensor"`
+}
+
+type SensorT struct {
+	SensorId string `json:"sensorid"`
+	Trigger  string `json:"trigger"`
+	Comapre  string `json:"compare"`
+	Action   string `json:"action"`
+}
+type Triggers struct {
+	Triggers []CustomerT `json:"customers"`
+}
+
+var T Triggers
 
 /*
  This file needs to read in Trigger-Action rules of the following type
@@ -32,4 +57,20 @@ func SchedInit() {
 	loc, _ := time.LoadLocation("Asia/Kolkata")
 	tm := time.Now().In(loc)
 	fmt.Printf("\nSchedInit called...%s", tm.Format("2006-01-02 15:04:05"))
+	readTriggerFile()
+}
+
+func readTriggerFile() {
+	jsonFile, err := os.Open("cfg/triggers.json")
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("\nOpened triggers.json")
+	defer jsonFile.Close()
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+	//fmt.Println("JSON File: ", byteValue)
+	json.Unmarshal(byteValue, &T)
+	for i, _ := range T.Triggers {
+		fmt.Printf("\n%+v", T.Triggers[i])
+	}
 }
