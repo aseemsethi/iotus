@@ -19,10 +19,10 @@
                 "rw" : "read"
                 },
                 {
-                "gwid"      : "10010", 
-                "sensorid"  : "1001002", 
-                "type"      : "onoff",
-                "rw" : "write"
+                "gwid"      : "cc50e3", 
+                "sensorid"  : "54985c", 
+                "type"      : "temperature",
+                "rw" : "read"
                 }
                 ]
             },
