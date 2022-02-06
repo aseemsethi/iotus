@@ -47,6 +47,7 @@ type Telemerty struct {
 	GwId     string `json:"gwid"`
 	SensorId string `json:"sensorid"`
 	Data     string `json:"data"`
+	Tm       string `json:"time"`
 }
 
 var dbg *sql.DB

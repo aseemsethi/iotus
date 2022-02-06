@@ -6,6 +6,7 @@ import (
 	db "github.com/aseemsethi/iotus/db"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 	"strconv"
+	//"time"
 )
 
 var t1 db.Telemerty
@@ -25,6 +26,8 @@ var telemetryDataRecv mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Me
 	cid, sensorType := db.Db_telemetry_update(t1)
 
 	// Send this msg to the Android App waiting on gurupada/<custid>
+	//currentTime := time.Now()
+	//tm := currentTime.Format("2006-01-02 15:04:05")
 	sendTopic := fmt.Sprintf("gurupada/%s/%s", strconv.Itoa(cid), sensorType)
 	fmt.Printf("\nMQTT Assist: Send to %s, msg:%s", sendTopic, msg.Payload())
 	token := c.Publish(sendTopic, 0, false, msg.Payload())
