@@ -43,12 +43,36 @@ type Customers struct {
 
 var C Customers
 
+/***************** Data Telemetery structure *************/
+type CustomerT struct {
+	Cid int        `json:"cid"`
+	Gw  []GatewayT `json:"gateway"`
+}
+
+type GatewayT struct {
+	GwId    string    `json:"gwid"`
+	Sensors []SensorT `json:"sensor"`
+}
+
+type SensorT struct {
+	SensorId string `json:"sensorid"`
+	Type     string `json:"type"`
+	Trigger  string `json:"trigger"`
+	Comapre  string `json:"compare"`
+	Action   string `json:"action"`
+}
+type Triggers struct {
+	Triggers []CustomerT `json:"customers"`
+}
+
 type Telemerty struct {
 	GwId     string `json:"gwid"`
 	SensorId string `json:"sensorid"`
 	Data     string `json:"data"`
 	Tm       string `json:"time"`
 }
+
+var T Triggers
 
 var dbg *sql.DB
 

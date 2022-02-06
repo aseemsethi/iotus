@@ -8,12 +8,21 @@
         "sensor" : [
             {
             "sensorid"  : "f6e01a", 
+            "type"      : "door",
+            "trigger"   : "=",
+            "compare"   : "open",
+            "action"    : "alarm"
+            },
+                        {
+            "sensorid"  : "54985c", 
+            "type"      : "temperature",
             "trigger"   : ">",
             "compare"   : "40",
             "action"    : "alarm"
             },
             {
             "sensorid"  : "1001002", 
+            "type"      : "onoff",
             "trigger"   : "time",
             "compare"   : "0900",
             "action"    : "on"
