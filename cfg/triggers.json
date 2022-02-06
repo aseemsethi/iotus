@@ -11,6 +11,8 @@
             "type"      : "door",
             "trigger"   : "=",
             "compare"   : "open",
+            "timeStart" : "08:30 PM",
+            "timeEnd"   : "11:59 PM",
             "action"    : "alarm"
             },
                         {
@@ -18,6 +20,8 @@
             "type"      : "temperature",
             "trigger"   : ">",
             "compare"   : "40",
+            "timeStart" : "08:30 PM",
+            "timeEnd"   : "11:59 PM",
             "action"    : "alarm"
             },
             {

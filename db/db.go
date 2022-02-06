@@ -55,15 +55,19 @@ type GatewayT struct {
 }
 
 type SensorT struct {
-	SensorId string `json:"sensorid"`
-	Type     string `json:"type"`
-	Trigger  string `json:"trigger"`
-	Comapre  string `json:"compare"`
-	Action   string `json:"action"`
+	SensorId  string `json:"sensorid"`
+	Type      string `json:"type"`
+	Trigger   string `json:"trigger"`
+	Compare   string `json:"compare"`
+	TimeStart string `json:"timeStart"`
+	TimeEnd   string `json:"timeEnd"`
+	Action    string `json:"action"`
 }
 type Triggers struct {
 	Triggers []CustomerT `json:"customers"`
 }
+
+/***************** Data Telemetery structure via MQTT *************/
 
 type Telemerty struct {
 	GwId     string `json:"gwid"`

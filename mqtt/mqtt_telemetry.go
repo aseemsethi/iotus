@@ -7,8 +7,8 @@ import (
 	//sched "github.com/aseemsethi/iotus/sched"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 	"strconv"
-	//"time"
 	"strings"
+	"time"
 )
 
 var t1 db.Telemerty
@@ -28,8 +28,6 @@ var telemetryDataRecv mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Me
 	cid, sensorType := db.Db_telemetry_update(t1)
 
 	// Send this msg to the Android App waiting on gurupada/<custid>
-	//currentTime := time.Now()
-	//tm := currentTime.Format("2006-01-02 15:04:05")
 	sendTopic := fmt.Sprintf("gurupada/%s/%s", strconv.Itoa(cid), sensorType)
 	fmt.Printf("\nMQTT Assist: Send to %s, msg:%s", sendTopic, msg.Payload())
 	token := c.Publish(sendTopic, 0, false, msg.Payload())
@@ -41,6 +39,7 @@ var telemetryDataRecv mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Me
 }
 
 func checkAlarm(cid int, t1 db.Telemerty) {
+	loc, _ := time.LoadLocation("Asia/Kolkata")
 	for _, v := range db.T.Triggers {
 		if v.Cid == cid {
 			fmt.Printf("\n Triggers: Customer found...")
@@ -54,10 +53,23 @@ func checkAlarm(cid int, t1 db.Telemerty) {
 								tempValue := strings.Split(t1.Data, ":")[1]
 								//fmt.Printf("\n tempvalue: %v", tempValue)
 								a, _ := strconv.ParseFloat(tempValue, 64)
-								b, _ := strconv.Atoi(v2.Comapre)
+								b, _ := strconv.Atoi(v2.Compare)
 								fmt.Printf("\n Triggers: Temp value: %f %f", a, float64(b))
-								if a > float64(b) {
-									fmt.Printf("\n Triggers: Alarm !!")
+								currentTime := time.Now().In(loc)
+								tm := currentTime.Format("03:04 PM")
+								tmNow, _ := time.ParseInLocation("03:04 PM", tm, loc)
+								fmt.Printf("\n Time Now: %v", tmNow) // 2022-02-06 21:00
+								sensorStartTime, _ := time.ParseInLocation("03:04 PM", v2.TimeStart, loc)
+								sensorEndTime, _ := time.ParseInLocation("03:04 PM", v2.TimeEnd, loc)
+								fmt.Printf("\nTriggers: SensorTimes: %v : %v", sensorStartTime, sensorEndTime)
+								if tmNow.After(sensorStartTime) &&
+									tmNow.Before(sensorEndTime) {
+									fmt.Printf("\n Triggers: Time Alarm !!")
+									if a > float64(b) {
+										fmt.Printf("\n Triggers: Val Alarm !!")
+									} else {
+										fmt.Printf("\n Triggers: No Val Alarm !!")
+									}
 								}
 							}
 						}
