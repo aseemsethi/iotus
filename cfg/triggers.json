@@ -11,16 +11,25 @@
             "type"      : "door",
             "trigger"   : "=",
             "compare"   : "open",
-            "timeStart" : "08:30 PM",
-            "timeEnd"   : "11:59 PM",
+            "timeStart" : "00:01 AM",
+            "timeEnd"   : "06:00 AM",
             "action"    : "alarm"
             },
-                        {
+            {
             "sensorid"  : "54985c", 
             "type"      : "temperature",
             "trigger"   : ">",
             "compare"   : "40",
-            "timeStart" : "08:30 PM",
+            "timeStart" : "00:00 AM",
+            "timeEnd"   : "11:59 PM",
+            "action"    : "alarm"
+            },
+            {
+            "sensorid"  : "9b5e2a", 
+            "type"      : "temperature",
+            "trigger"   : ">",
+            "compare"   : "40",
+            "timeStart" : "00:00 AM",
             "timeEnd"   : "11:59 PM",
             "action"    : "alarm"
             },
