@@ -25,10 +25,16 @@ var telemetryDataRecv mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Me
 	}
 	fmt.Printf("\n GW JSON recvd:::: %v", t1)
 	// Save to customer specific file
-	cid, sensorType := db.Db_telemetry_update(t1)
+	cid, sensorType, sensorName := db.Db_telemetry_update(t1)
+	if cid == 0 {
+		fmt.Printf("\n No customer fond for this MQTT telemetry update")
+		return
+	}
 
-	// Send this msg to the Android App waiting on gurupada/<custid>
-	sendTopic := fmt.Sprintf("gurupada/%s/%s", strconv.Itoa(cid), sensorType)
+	// Send this msg to the Android App waiting on
+	// gurupada/<custid>/<sensorType>/<sensorName>
+	sendTopic := fmt.Sprintf("gurupada/%s/%s/%s",
+		strconv.Itoa(cid), sensorType, sensorName)
 	fmt.Printf("\nMQTT Assist: Send to %s, msg:%s", sendTopic, msg.Payload())
 	token := c.Publish(sendTopic, 0, false, msg.Payload())
 	token.Wait()
@@ -46,10 +52,10 @@ func checkTempAlarm(t1 db.Telemerty, v2 db.SensorT) {
 	currentTime := time.Now().In(loc)
 	tm := currentTime.Format("03:04 PM")
 	tmNow, _ := time.ParseInLocation("03:04 PM", tm, loc)
-	fmt.Printf("\n Time Now: %v", tmNow) // 2022-02-06 21:00
+	//fmt.Printf("\n Time Now: %v", tmNow) // 2022-02-06 21:00
 	sensorStartTime, _ := time.ParseInLocation("03:04 PM", v2.TimeStart, loc)
 	sensorEndTime, _ := time.ParseInLocation("03:04 PM", v2.TimeEnd, loc)
-	fmt.Printf("\nTriggers: SensorTimes: %v : %v", sensorStartTime, sensorEndTime)
+	//fmt.Printf("\nTriggers: SensorTimes: %v : %v", sensorStartTime, sensorEndTime)
 	if tmNow.After(sensorStartTime) &&
 		tmNow.Before(sensorEndTime) {
 		fmt.Printf("\n Triggers: Time Alarm !!")

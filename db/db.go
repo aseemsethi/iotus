@@ -31,6 +31,7 @@ type Gateway struct {
 type Sensor struct {
 	GwId     string `json:"gwid"`
 	SensorId string `json:"sensorid"`
+	Name     string `json:"name"`
 	Type     string `json:"type"`
 	Protocol string `json:"protocol"`
 	RW       string `json:"rw"`
@@ -145,7 +146,7 @@ func Db_sensor_add(gwid string, sensorid string, typeSensor string, protocol str
 	fmt.Printf("\n GW %d not updated in any customer row", gwid)
 }
 
-func Db_telemetry_update(t Telemerty) (int, string) {
+func Db_telemetry_update(t Telemerty) (int, string, string) {
 	fmt.Printf("\nUpdating telemerty data..")
 	for i, v := range C.Customers {
 		for i1, v1 := range v.Gw {
@@ -160,14 +161,15 @@ func Db_telemetry_update(t Telemerty) (int, string) {
 						Db_telemetry_save(
 							C.Customers[i].Cid, C.Customers[i].Gw[i1].GwId,
 							C.Customers[i].Gw[i1].Sensors[i2].SensorId, t.Data)
-						return C.Customers[i].Cid, C.Customers[i].Gw[i1].Sensors[i2].Type
+						return C.Customers[i].Cid, C.Customers[i].Gw[i1].Sensors[i2].Type,
+							C.Customers[i].Gw[i1].Sensors[i2].Name
 					}
 				}
 			}
 		}
 	}
 	fmt.Printf("\n GW %d not updated in any customer row", t.GwId)
-	return 0, ""
+	return 0, "", ""
 }
 
 func Db_telemetry_save(cid int, gwid string, sensorid string, data string) {

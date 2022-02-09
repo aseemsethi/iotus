@@ -15,18 +15,21 @@
                  {
                 "gwid"      : "cc50e3", 
                 "sensorid"  : "f6e01a", 
+                "name"      : "Study",
                 "type"      : "door",
                 "rw"        : "read"
                 },
                 {
                 "gwid"      : "cc50e3", 
                 "sensorid"  : "9b5e2a", 
+                "name"      : "Study",
                 "type"      : "temperature",
                 "rw"        : "read"
                 },
                 {
                 "gwid"      : "cc50e3", 
                 "sensorid"  : "54985c", 
+                "name"      : "DG Room",
                 "type"      : "temperature",
                 "rw"        : "read"
                 }
@@ -48,10 +51,33 @@
         "address"  : "Varthur Rd",
         "gateway" : [
             {
-            "gwid"      : "20010", 
+            "gwid"      : "3c71bf", 
             "type"      : "ESP32", 
             "location"  : "Bangalore", 
-            "ip"        : "0.0.0.0"
+            "ip"        : "0.0.0.0",
+            "sensor" : [
+                 {
+                "gwid"      : "cc50e3", 
+                "sensorid"  : "f6e01a", 
+                "name"      : "Study",
+                "type"      : "door",
+                "rw"        : "read"
+                },
+                {
+                "gwid"      : "cc50e3", 
+                "sensorid"  : "9b5e2a", 
+                "name"      : "Study",
+                "type"      : "temperature",
+                "rw"        : "read"
+                },
+                {
+                "gwid"      : "cc50e3", 
+                "sensorid"  : "54985c", 
+                "name"      : "DG Room",
+                "type"      : "temperature",
+                "rw"        : "read"
+                }
+                ]
             },
             {
             "gwid"      : "20020", 
