@@ -31,6 +31,8 @@ var telemetryDataRecv mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Me
 		return
 	}
 
+	// To the original message recvd from GW, add in the
+	// sensorName and sensorType too.
 	var m map[string]interface{}
 	err = json.Unmarshal(msg.Payload(), &m)
 	m["name"] = sensorName
@@ -38,9 +40,7 @@ var telemetryDataRecv mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Me
 	msgNew, err := json.Marshal(m)
 
 	// Send this msg to the Android App waiting on
-	// gurupada/<custid>/<sensorType>/<sensorName>
-	//sendTopic := fmt.Sprintf("gurupada/%s/%s/%s",
-	//	strconv.Itoa(cid), sensorType, sensorName)
+	// gurupada/<custid>/<sensorType>/
 	sendTopic := fmt.Sprintf("gurupada/%s/%s",
 		strconv.Itoa(cid), sensorType)
 	fmt.Printf("\nMQTT Assist: Send to %s, msg:%s", sendTopic, msgNew) // msg.Payload())
