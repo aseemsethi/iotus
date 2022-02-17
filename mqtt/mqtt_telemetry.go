@@ -31,19 +31,27 @@ var telemetryDataRecv mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Me
 		return
 	}
 
+	var m map[string]interface{}
+	err = json.Unmarshal(msg.Payload(), &m)
+	m["name"] = sensorName
+	m["type"] = sensorType
+	msgNew, err := json.Marshal(m)
+
 	// Send this msg to the Android App waiting on
 	// gurupada/<custid>/<sensorType>/<sensorName>
-	sendTopic := fmt.Sprintf("gurupada/%s/%s/%s",
-		strconv.Itoa(cid), sensorType, sensorName)
-	fmt.Printf("\nMQTT Assist: Send to %s, msg:%s", sendTopic, msg.Payload())
-	token := c.Publish(sendTopic, 0, false, msg.Payload())
+	//sendTopic := fmt.Sprintf("gurupada/%s/%s/%s",
+	//	strconv.Itoa(cid), sensorType, sensorName)
+	sendTopic := fmt.Sprintf("gurupada/%s/%s",
+		strconv.Itoa(cid), sensorType)
+	fmt.Printf("\nMQTT Assist: Send to %s, msg:%s", sendTopic, msgNew) // msg.Payload())
+	token := c.Publish(sendTopic, 0, false, msgNew)                    // msg.Payload())
 	token.Wait()
 
 	//Also check for Alarm condition here, send mqtt alarm to Android app if yes
 	checkAlarm(cid, t1)
 }
 
-func checkTempAlarm(t1 db.Telemerty, v2 db.SensorT) {
+func checkTempAlarm(t1 db.Telemerty, v2 db.SensorT) bool {
 	loc, _ := time.LoadLocation("Asia/Kolkata")
 	tempValue := strings.Split(t1.Data, ":")[1]
 	a, _ := strconv.ParseFloat(tempValue, 64)
@@ -61,14 +69,18 @@ func checkTempAlarm(t1 db.Telemerty, v2 db.SensorT) {
 		fmt.Printf("\n Triggers: Time Alarm !!")
 		if a > float64(b) {
 			fmt.Printf("\n Triggers: Val Alarm !!")
+			return true
 		} else {
 			fmt.Printf("\n Triggers: No Val Alarm !!")
+			return false
 		}
 	}
+	return false
 }
 
 func sendAlarm(cid int, msg string) {
 	// Send this msg to the Android App waiting on gurupada/<custid>
+
 	sendTopic := fmt.Sprintf("gurupada/%s/alarm", strconv.Itoa(cid))
 	fmt.Printf("\nMQTT Assist Alarm: Send to %s, msg:%s", sendTopic, msg)
 	token := c.Publish(sendTopic, 0, false, msg)
@@ -76,6 +88,10 @@ func sendAlarm(cid int, msg string) {
 }
 
 func checkAlarm(cid int, msg db.Telemerty) {
+	loc, _ := time.LoadLocation("Asia/Kolkata")
+	currentTime := time.Now().In(loc)
+	tm := currentTime.Format("03:04 PM")
+	tmNow, _ := time.ParseInLocation("03:04 PM", tm, loc)
 	for _, v := range db.T.Triggers {
 		if v.Cid == cid {
 			fmt.Printf("\n Triggers: Customer found...")
@@ -90,13 +106,25 @@ func checkAlarm(cid int, msg db.Telemerty) {
 									fmt.Printf("\niSensor HEX values recvd")
 									// TBD - call checkTempAlarmHex()
 								} else {
-									checkTempAlarm(msg, v2)
+									if checkTempAlarm(msg, v2) == true {
+										alarmMsg := fmt.Sprintf("%s:High Temp", v2.Name)
+										sendAlarm(cid, alarmMsg)
+									}
 								}
 							} else if v2.Type == "door" && v2.Trigger == "=" {
+								// We are triggering on "open" only for now...disregarding json file
 								if strings.Contains(msg.Data, "Open") {
 									fmt.Printf("\nDoor Opened %s", v2.SensorId)
-									alarmMsg := fmt.Sprintf("%s:Open", v2.SensorId)
-									sendAlarm(cid, alarmMsg)
+									alarmMsg := fmt.Sprintf("%s:Open", v2.Name)
+									sensorStartTime, _ := time.ParseInLocation("03:04 PM", v2.TimeStart, loc)
+									sensorEndTime, _ := time.ParseInLocation("03:04 PM", v2.TimeEnd, loc)
+									if tmNow.After(sensorStartTime) &&
+										tmNow.Before(sensorEndTime) {
+										fmt.Printf("\nDoor Opened - send alarm - %s", v2.Name)
+										sendAlarm(cid, alarmMsg)
+									} else {
+										fmt.Printf("\nDoor Opened - no alarm")
+									}
 								}
 							}
 						}

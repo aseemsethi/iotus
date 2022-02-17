@@ -9,15 +9,27 @@
             {
             "sensorid"  : "f6e01a", 
             "type"      : "door",
+            "name"      : "Study",
             "trigger"   : "=",
             "compare"   : "open",
-            "timeStart" : "00:01 AM",
-            "timeEnd"   : "06:00 AM",
+            "timeStart" : "00:00 AM",
+            "timeEnd"   : "11:59 PM",
+            "action"    : "alarm"
+            },
+            {
+            "sensorid"  : "4ffe1a", 
+            "type"      : "door",
+            "name"      : "MainDoor",
+            "trigger"   : "=",
+            "compare"   : "open",
+            "timeStart" : "00:00 AM",
+            "timeEnd"   : "11:59 PM",
             "action"    : "alarm"
             },
             {
             "sensorid"  : "54985c", 
             "type"      : "temperature",
+            "name"      : "thingsUp",
             "trigger"   : ">",
             "compare"   : "40",
             "timeStart" : "00:00 AM",
@@ -27,6 +39,7 @@
             {
             "sensorid"  : "9b5e2a", 
             "type"      : "temperature",
+            "name"      : "iRobot",
             "trigger"   : ">",
             "compare"   : "40",
             "timeStart" : "00:00 AM",
@@ -53,9 +66,6 @@
         "sensor" : [
             {
             "sensorid"  : "1002001"
-            },
-            {
-            "sensorid"  : "1002002" 
             }
             ]
         }
@@ -65,7 +75,7 @@
         "cid"   : 200,
         "gateway" : [
             {
-            "gwid"      : "20010"
+            "gwid"      : "3c71bf"
             }
             ]
         }

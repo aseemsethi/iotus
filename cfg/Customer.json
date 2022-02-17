@@ -2,17 +2,24 @@
     "customers" : [
     { 
         "cid"   : 100,
-        "name"     : "PMOA",
-        "location" : "DG Room",
+        "name"     : "AseemHome",
+        "location" : "Bangalore",
         "address"  : "Varthur Rd",
         "gateway" : [
             {
             "gwid"      : "cc50e3", 
             "type"      : "ESP32", 
-            "location"  : "Bangalore", 
+            "location"  : "MainEntrance", 
             "ip"        : "0.0.0.0",
             "sensor" : [
-                 {
+                {
+                "gwid"      : "cc50e3", 
+                "sensorid"  : "4ffe1a", 
+                "name"      : "MainDoor",
+                "type"      : "door",
+                "rw"        : "read"
+                },  
+                {
                 "gwid"      : "cc50e3", 
                 "sensorid"  : "f6e01a", 
                 "name"      : "Study",
@@ -46,18 +53,18 @@
     
     { 
         "cid"   : 200,
-        "name"     : "Prestige",
-        "location" : "DG Room",
-        "address"  : "Varthur Rd",
+        "name"     : "SaravananHome",
+        "location" : "Chennai",
+        "address"  : "Almelapuram",
         "gateway" : [
             {
             "gwid"      : "3c71bf", 
             "type"      : "ESP32", 
-            "location"  : "Bangalore", 
+            "location"  : "MainEntrance", 
             "ip"        : "0.0.0.0",
             "sensor" : [
                  {
-                "gwid"      : "cc50e3", 
+                "gwid"      : "3c71bf", 
                 "sensorid"  : "f6e01a", 
                 "name"      : "Study",
                 "type"      : "door",
@@ -69,21 +76,8 @@
                 "name"      : "Study",
                 "type"      : "temperature",
                 "rw"        : "read"
-                },
-                {
-                "gwid"      : "cc50e3", 
-                "sensorid"  : "54985c", 
-                "name"      : "DG Room",
-                "type"      : "temperature",
-                "rw"        : "read"
                 }
                 ]
-            },
-            {
-            "gwid"      : "20020", 
-            "type"      : "ESP32", 
-            "location"  : "Bangalore", 
-            "ip"        : "0.0.0.0"
             }
         ]
     }

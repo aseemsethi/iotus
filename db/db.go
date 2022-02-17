@@ -58,6 +58,7 @@ type GatewayT struct {
 type SensorT struct {
 	SensorId  string `json:"sensorid"`
 	Type      string `json:"type"`
+	Name      string `json:"name"`
 	Trigger   string `json:"trigger"`
 	Compare   string `json:"compare"`
 	TimeStart string `json:"timeStart"`
