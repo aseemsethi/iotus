@@ -110,7 +110,7 @@ func Db_gw_add(gwid string, typegw string, ip string) int {
 	for i, v := range C.Customers {
 		for i1, v1 := range v.Gw {
 			if v1.GwId == gwid {
-				fmt.Printf("\n GW %d updated in customer %d", gwid, v.Cid)
+				fmt.Printf("\n GW %s updated in customer %d", gwid, v.Cid)
 				C.Customers[i].Gw[i1].TypeGw = typegw
 				C.Customers[i].Gw[i1].IP = ip
 				C.Customers[i].LastUpdated = time.Now().In(loc)
@@ -121,17 +121,17 @@ func Db_gw_add(gwid string, typegw string, ip string) int {
 			}
 		}
 	}
-	fmt.Printf("\n GW %d not updated in any customer row", gwid)
+	fmt.Printf("\n GW %s not updated in any customer row", gwid)
 	return 0
 }
 
 func Db_sensor_add(gwid string, sensorid string, typeSensor string, protocol string, rw string) {
-	fmt.Println("Updating gw row..")
+	fmt.Println("Updating sensor row..")
 	for i, v := range C.Customers {
 		for i1, v1 := range v.Gw {
 			for i2, _ := range v1.Sensors {
 				if v1.GwId == gwid {
-					fmt.Printf("\n Sensor %d under GW %d updated in customer %d",
+					fmt.Printf("\n Sensor %s under GW %s updated in customer %d",
 						sensorid, gwid, v.Cid)
 					C.Customers[i].Gw[i1].Sensors[i2].Type = typeSensor
 					C.Customers[i].Gw[i1].Sensors[i2].Protocol = protocol
@@ -144,17 +144,17 @@ func Db_sensor_add(gwid string, sensorid string, typeSensor string, protocol str
 			}
 		}
 	}
-	fmt.Printf("\n GW %d not updated in any customer row", gwid)
+	fmt.Printf("\n GW %s not updated in any customer row", gwid)
 }
 
 func Db_telemetry_update(t Telemerty) (int, string, string) {
-	fmt.Printf("\nUpdating telemerty data..")
+	//fmt.Printf("\nUpdating telemerty data..")
 	for i, v := range C.Customers {
 		for i1, v1 := range v.Gw {
 			if v1.GwId == t.GwId {
 				for i2, v2 := range v1.Sensors {
 					if v2.SensorId == t.SensorId {
-						fmt.Printf("\n Sensor %d under GW %d updated in customer %d to - %s",
+						fmt.Printf("\n Sensor %s under GW %s updated in customer %d to - %s",
 							v2.SensorId, v1.GwId, v.Cid, t.Data)
 						C.Customers[i].Gw[i1].Sensors[i2].State = t.Data
 						// Add Telemetry data line to customer file - customer-<cid>.stats
@@ -169,7 +169,7 @@ func Db_telemetry_update(t Telemerty) (int, string, string) {
 			}
 		}
 	}
-	fmt.Printf("\n GW %d not updated in any customer row", t.GwId)
+	fmt.Printf("\n GW %s not updated in any customer row", t.GwId)
 	return 0, "", ""
 }
 

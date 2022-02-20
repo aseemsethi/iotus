@@ -21,13 +21,6 @@
                 },  
                 {
                 "gwid"      : "cc50e3", 
-                "sensorid"  : "f6e01a", 
-                "name"      : "Study",
-                "type"      : "door",
-                "rw"        : "read"
-                },
-                {
-                "gwid"      : "cc50e3", 
                 "sensorid"  : "9b5e2a", 
                 "name"      : "Study",
                 "type"      : "temperature",
@@ -71,7 +64,7 @@
                 "rw"        : "read"
                 },
                 {
-                "gwid"      : "cc50e3", 
+                "gwid"      : "3c71bf", 
                 "sensorid"  : "9b5e2a", 
                 "name"      : "Study",
                 "type"      : "temperature",
