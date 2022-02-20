@@ -56,9 +56,7 @@ func checkTempAlarmHex(t1 db.Telemerty, v2 db.SensorT) bool {
 	tempValue := strings.Split(t1.Data, ":")[1]
 	a, _ := strconv.ParseUint(tempValue, 16, 32)
 	a1 := uint32(a)
-	fmt.Printf("\na: %d", a1)
 	c := float32(a1)
-	fmt.Printf("\nc: %f", c)
 	b, _ := strconv.Atoi(v2.Compare)
 	fmt.Printf("\n Triggers: Temp value: %f %f", c, float32(b))
 	currentTime := time.Now().In(loc)
