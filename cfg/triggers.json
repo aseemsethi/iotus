@@ -60,6 +60,16 @@
                 {
                 "sensorid"  : "f6e01a", 
                 "type"      : "door",
+                "name"      : "MainDoor",
+                "trigger"   : "=",
+                "compare"   : "open",
+                "timeStart" : "00:00 AM",
+                "timeEnd"   : "11:59 PM",
+                "action"    : "alarm"
+                },
+                {
+                "sensorid"  : "a38bde", 
+                "type"      : "door",
                 "name"      : "Study",
                 "trigger"   : "=",
                 "compare"   : "open",
