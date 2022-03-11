@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	db "github.com/aseemsethi/iotus/db"
-	//sched "github.com/aseemsethi/iotus/sched"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 	"strconv"
 	"strings"
@@ -105,6 +104,15 @@ func checkTempAlarm(t1 db.Telemerty, v2 db.SensorT) bool {
 		}
 	}
 	return false
+}
+
+func SendAlarm(cid int, msg string) {
+	// Send this msg to the Android App waiting on gurupada/<custid>
+
+	sendTopic := fmt.Sprintf("gurupada/%s/alarm", strconv.Itoa(cid))
+	fmt.Printf("\nMQTT Assist Alarm: Send to %s, msg:%s", sendTopic, msg)
+	token := c.Publish(sendTopic, 0, false, msg)
+	token.Wait()
 }
 
 func sendAlarm(cid int, msg string) {

@@ -80,7 +80,33 @@
                 ]
             }
         ]
+    },
+    
+        { 
+        "cid"   : 300,
+        "name"     : "JeetuHome",
+        "location" : "Bangalore",
+        "address"  : "Almelapuram",
+        "gateway" : [
+            {
+            "gwid"      : "10000", 
+            "type"      : "ESP32", 
+            "location"  : "MainEntrance", 
+            "ip"        : "0.0.0.0",
+            "sensor" : [
+                 {
+                "gwid"      : "10000", 
+                "sensorid"  : "10100", 
+                "name"      : "MainDoor",
+                "type"      : "door",
+                "rw"        : "read"
+                }
+                ]
+            }
+        ]
     }
+    
+    
     ]
 }
 

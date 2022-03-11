@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/aseemsethi/iotus/db"
+	"github.com/aseemsethi/iotus/mqtt"
 	"io/ioutil"
 	"os"
 	"time"
@@ -36,6 +37,23 @@ func SchedInit() {
 	tm := time.Now().In(loc)
 	fmt.Printf("\nSchedInit called...%s", tm.Format("2006-01-02 15:04:05"))
 	readTriggerFile()
+	checkGws()
+}
+
+func checkGws() {
+	for true {
+		fmt.Println("!")
+		loc, _ := time.LoadLocation("Asia/Kolkata")
+		currentTime := time.Now().In(loc)
+		time.Sleep(180 * time.Second)
+		for _, v := range db.C.Customers {
+			diff := currentTime.Sub(v.LastUpdated)
+			if (diff.Minutes()) > 4 {
+				fmt.Println("time diff alarm !!")
+				utils.SendAlarm(v.Cid, "GW down !")
+			}
+		}
+	}
 }
 
 func readTriggerFile() {
