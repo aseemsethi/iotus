@@ -90,6 +90,28 @@
              ]
             }
             ]
+        },
+        {
+        "cid"   : 300,
+        "gateway" : [
+            {
+            "gwid"      : "78e36d",
+            "sensor" : [
+                {
+                "sensorid"  : "0b89de", 
+                "type"      : "door",
+                "name"      : "MainDoor",
+                "trigger"   : "=",
+                "compare"   : "open",
+                "timeStart" : "00:00 AM",
+                "timeEnd"   : "11:59 PM",
+                "action"    : "alarm"
+                }
+             ]
+            }
+            ]
         }
+        
+        
     ]
 }
