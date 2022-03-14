@@ -98,13 +98,13 @@
         "address"  : "Adarsh Palm Meadows",
         "gateway" : [
             {
-            "gwid"      : "10000", 
+            "gwid"      : "78e36d641894", 
             "type"      : "ESP32", 
             "location"  : "MainEntrance", 
             "ip"        : "0.0.0.0",
             "sensor" : [
                  {
-                "gwid"      : "10000", 
+                "gwid"      : "78e36d641894", 
                 "sensorid"  : "10010", 
                 "name"      : "MainDoor",
                 "type"      : "door",

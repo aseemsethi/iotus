@@ -105,7 +105,7 @@
         "cid"   : 300,
         "gateway" : [
             {
-            "gwid"      : "10000",
+            "gwid"      : "78e36d641894",
             "sensor" : [
                 {
                 "sensorid"  : "1010", 
