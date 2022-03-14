@@ -108,7 +108,7 @@
             "gwid"      : "78e36d641894",
             "sensor" : [
                 {
-                "sensorid"  : "1010", 
+                "sensorid"  : "0b89de", 
                 "type"      : "door",
                 "name"      : "MainDoor",
                 "trigger"   : "=",
