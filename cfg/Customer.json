@@ -36,10 +36,19 @@
                 ]
             },
             {
-            "gwid"      : "10020", 
+            "gwid"      : "78e36d", 
             "type"      : "ESP32", 
-            "location"  : "Bangalore", 
-            "ip"        : "0.0.0.0"
+            "location"  : "MainEntrance", 
+            "ip"        : "0.0.0.0",
+            "sensor" : [
+                 {
+                "gwid"      : "78e36d", 
+                "sensorid"  : "0b89de", 
+                "name"      : "BackDoor",
+                "type"      : "door",
+                "rw"        : "read"
+                }
+                ]
             }
         ]
     },
@@ -86,17 +95,17 @@
         "cid"   : 300,
         "name"     : "JeetuHome",
         "location" : "Bangalore",
-        "address"  : "Almelapuram",
+        "address"  : "Adarsh Palm Meadows",
         "gateway" : [
             {
-            "gwid"      : "78e36d", 
+            "gwid"      : "10000", 
             "type"      : "ESP32", 
             "location"  : "MainEntrance", 
             "ip"        : "0.0.0.0",
             "sensor" : [
                  {
-                "gwid"      : "78e36d", 
-                "sensorid"  : "0b89de", 
+                "gwid"      : "10000", 
+                "sensorid"  : "10010", 
                 "name"      : "MainDoor",
                 "type"      : "door",
                 "rw"        : "read"

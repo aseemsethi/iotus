@@ -42,13 +42,23 @@
             ]
         },
         {
-        "gwid"      : "10020", 
+        "gwid"      : "78e36d",
         "sensor" : [
             {
-            "sensorid"  : "1002001"
+            "sensorid"  : "0b89de", 
+            "type"      : "door",
+            "name"      : "Backdoor",
+            "trigger"   : "=",
+            "compare"   : "open",
+            "timeStart" : "00:00 AM",
+            "timeEnd"   : "11:59 PM",
+            "action"    : "alarm"
             }
-            ]
-        }
+         ]
+         }
+        
+        
+        
     ]
     }, 
         {
@@ -95,10 +105,10 @@
         "cid"   : 300,
         "gateway" : [
             {
-            "gwid"      : "78e36d",
+            "gwid"      : "10000",
             "sensor" : [
                 {
-                "sensorid"  : "0b89de", 
+                "sensorid"  : "1010", 
                 "type"      : "door",
                 "name"      : "MainDoor",
                 "trigger"   : "=",
