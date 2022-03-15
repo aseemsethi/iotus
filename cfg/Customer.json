@@ -36,13 +36,13 @@
                 ]
             },
             {
-            "gwid"      : "78e36d", 
+            "gwid"      : "78e36d642ff0", 
             "type"      : "ESP32", 
             "location"  : "MainEntrance", 
             "ip"        : "0.0.0.0",
             "sensor" : [
                  {
-                "gwid"      : "78e36d", 
+                "gwid"      : "78e36d642ff0", 
                 "sensorid"  : "0b89de", 
                 "name"      : "BackDoor",
                 "type"      : "door",
