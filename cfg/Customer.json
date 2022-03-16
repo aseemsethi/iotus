@@ -7,27 +7,27 @@
         "address"  : "Varthur Rd",
         "gateway" : [
             {
-            "gwid"      : "cc50e3", 
+            "gwid"      : "cc50e3a94118", 
             "type"      : "ESP32", 
             "location"  : "MainEntrance", 
             "ip"        : "0.0.0.0",
             "sensor" : [
                 {
-                "gwid"      : "cc50e3", 
+                "gwid"      : "cc50e3a94118", 
                 "sensorid"  : "4ffe1a", 
                 "name"      : "MainDoor",
                 "type"      : "door",
                 "rw"        : "read"
                 },  
                 {
-                "gwid"      : "cc50e3", 
+                "gwid"      : "cc50e3a94118", 
                 "sensorid"  : "9b5e2a", 
                 "name"      : "Study",
                 "type"      : "temperature",
                 "rw"        : "read"
                 },
                 {
-                "gwid"      : "cc50e3", 
+                "gwid"      : "cc50e3a94118", 
                 "sensorid"  : "54985c", 
                 "name"      : "DG Room",
                 "type"      : "temperature",
