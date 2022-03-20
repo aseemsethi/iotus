@@ -105,15 +105,38 @@
             "sensor" : [
                  {
                 "gwid"      : "78e36d641894", 
-                "sensorid"  : "0b89de", 
+                "sensorid"  : "1111", 
                 "name"      : "MainDoor",
                 "type"      : "door",
                 "rw"        : "read"
                 }
                 ]
             }
-        ]
-    }
+            ]
+        },
+        { 
+        "cid"   : 400,
+        "name"     : "VinayHome",
+        "location" : "Bangalore",
+        "address"  : "Adarsh Palm Meadows",
+        "gateway" : [
+            {
+            "gwid"      : "9c9c1fea5174", 
+            "type"      : "ESP32", 
+            "location"  : "MainEntrance", 
+            "ip"        : "0.0.0.0",
+            "sensor" : [
+                 {
+                "gwid"      : "78e36d641894", 
+                "sensorid"  : "1111", 
+                "name"      : "MainDoor",
+                "type"      : "door",
+                "rw"        : "read"
+                }
+                ]
+            }
+            ]
+        }
     
     
     ]

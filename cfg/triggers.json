@@ -108,7 +108,27 @@
             "gwid"      : "78e36d641894",
             "sensor" : [
                 {
-                "sensorid"  : "0b89de", 
+                "sensorid"  : "1111", 
+                "type"      : "door",
+                "name"      : "MainDoor",
+                "trigger"   : "=",
+                "compare"   : "open",
+                "timeStart" : "00:00 AM",
+                "timeEnd"   : "11:59 PM",
+                "action"    : "alarm"
+                }
+             ]
+            }
+            ]
+        },
+        {
+        "cid"   : 400,
+        "gateway" : [
+            {
+            "gwid"      : "9c9c1fea5174",
+            "sensor" : [
+                {
+                "sensorid"  : "1111", 
                 "type"      : "door",
                 "name"      : "MainDoor",
                 "trigger"   : "=",
