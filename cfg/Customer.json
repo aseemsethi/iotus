@@ -128,7 +128,7 @@
             "sensor" : [
                  {
                 "gwid"      : "9c9c1fea5174", 
-                "sensorid"  : "1111", 
+                "sensorid"  : "9688de", 
                 "name"      : "MainDoor",
                 "type"      : "door",
                 "rw"        : "read"
