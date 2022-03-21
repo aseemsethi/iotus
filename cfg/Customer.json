@@ -127,7 +127,30 @@
             "ip"        : "0.0.0.0",
             "sensor" : [
                  {
-                "gwid"      : "78e36d641894", 
+                "gwid"      : "9c9c1fea5174", 
+                "sensorid"  : "1111", 
+                "name"      : "MainDoor",
+                "type"      : "door",
+                "rw"        : "read"
+                }
+                ]
+            }
+            ]
+        },
+        { 
+        "cid"   : 500,
+        "name"     : "XYZHome",
+        "location" : "Bangalore",
+        "address"  : "Adarsh Palm Meadows",
+        "gateway" : [
+            {
+            "gwid"      : "78e36d6415c4", 
+            "type"      : "ESP32", 
+            "location"  : "MainEntrance", 
+            "ip"        : "0.0.0.0",
+            "sensor" : [
+                 {
+                "gwid"      : "78e36d6415c4", 
                 "sensorid"  : "1111", 
                 "name"      : "MainDoor",
                 "type"      : "door",
