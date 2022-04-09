@@ -60,27 +60,27 @@
         "address"  : "Almelapuram",
         "gateway" : [
             {
-            "gwid"      : "3c71bf", 
+            "gwid"      : "3c71bf9d8840", 
             "type"      : "ESP32", 
             "location"  : "MainEntrance", 
             "ip"        : "0.0.0.0",
             "sensor" : [
                  {
-                "gwid"      : "3c71bf", 
+                "gwid"      : "3c71bf9d8840", 
                 "sensorid"  : "f6e01a", 
                 "name"      : "MainDoor",
                 "type"      : "door",
                 "rw"        : "read"
                 },
                 {
-                "gwid"      : "3c71bf", 
+                "gwid"      : "3c71bf9d8840", 
                 "sensorid"  : "a38bde", 
                 "name"      : "Study",
                 "type"      : "door",
                 "rw"        : "read"
                 },
                 {
-                "gwid"      : "3c71bf", 
+                "gwid"      : "3c71bf9d8840", 
                 "sensorid"  : "9b5e2a", 
                 "name"      : "Temp",
                 "type"      : "temperature",
