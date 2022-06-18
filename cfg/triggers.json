@@ -7,26 +7,6 @@
         "gwid"      : "cc50e3a94118", 
         "sensor" : [
             {
-            "sensorid"  : "4ffe1a", 
-            "type"      : "door",
-            "name"      : "MainDoor",
-            "trigger"   : "=",
-            "compare"   : "open",
-            "timeStart" : "00:00 AM",
-            "timeEnd"   : "11:59 PM",
-            "action"    : "alarm"
-            },
-            {
-            "sensorid"  : "54985c", 
-            "type"      : "temperature",
-            "name"      : "thingsUp",
-            "trigger"   : ">",
-            "compare"   : "40",
-            "timeStart" : "00:00 AM",
-            "timeEnd"   : "11:59 PM",
-            "action"    : "alarm"
-            },
-            {
             "sensorid"  : "1001002", 
             "type"      : "onoff",
             "trigger"   : "time",
@@ -50,6 +30,26 @@
             "name"      : "Backdoor",
             "trigger"   : "=",
             "compare"   : "open",
+            "timeStart" : "00:00 AM",
+            "timeEnd"   : "11:59 PM",
+            "action"    : "alarm"
+            },
+            {
+            "sensorid"  : "4ffe1a", 
+            "type"      : "door",
+            "name"      : "MainDoor",
+            "trigger"   : "=",
+            "compare"   : "open",
+            "timeStart" : "00:00 AM",
+            "timeEnd"   : "11:59 PM",
+            "action"    : "alarm"
+            },
+            {
+            "sensorid"  : "54985c", 
+            "type"      : "temperature",
+            "name"      : "thingsUp",
+            "trigger"   : ">",
+            "compare"   : "40",
             "timeStart" : "00:00 AM",
             "timeEnd"   : "11:59 PM",
             "action"    : "alarm"
