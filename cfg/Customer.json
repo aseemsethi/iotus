@@ -14,22 +14,8 @@
             "sensor" : [
                 {
                 "gwid"      : "cc50e3a94118", 
-                "sensorid"  : "4ffe1a", 
-                "name"      : "MainDoor",
-                "type"      : "door",
-                "rw"        : "read"
-                },  
-                {
-                "gwid"      : "cc50e3a94118", 
                 "sensorid"  : "9b5e2a", 
                 "name"      : "Study",
-                "type"      : "temperature",
-                "rw"        : "read"
-                },
-                {
-                "gwid"      : "cc50e3a94118", 
-                "sensorid"  : "54985c", 
-                "name"      : "DG Room",
                 "type"      : "temperature",
                 "rw"        : "read"
                 }
@@ -47,7 +33,21 @@
                 "name"      : "BackDoor",
                 "type"      : "door",
                 "rw"        : "read"
-                }
+                },
+                {
+                "gwid"      : "78e36d642ff0", 
+                "sensorid"  : "54985c", 
+                "name"      : "DG Room",
+                "type"      : "temperature",
+                "rw"        : "read"
+                },
+                {
+                "gwid"      : "78e36d642ff0", 
+                "sensorid"  : "4ffe1a", 
+                "name"      : "MainDoor",
+                "type"      : "door",
+                "rw"        : "read"
+                }  
                 ]
             }
         ]
