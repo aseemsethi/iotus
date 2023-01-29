@@ -4,14 +4,17 @@
     "cid"   : 100,
     "gateway" : [
         {
-        "gwid"      : "cc50e3a94118", 
+        "gwid"      : "78e36d6415c4", 
         "sensor" : [
             {
-            "sensorid"  : "1001002", 
-            "type"      : "onoff",
-            "trigger"   : "time",
-            "compare"   : "0900",
-            "action"    : "on"
+            "sensorid"  : "037dde", 
+            "type"      : "door",
+            "name"      : "RoomDoor",
+            "trigger"   : "=",
+            "compare"   : "open",
+            "timeStart" : "00:00 AM",
+            "timeEnd"   : "11:59 PM",
+            "action"    : "alarm"
             },
             {
             "sensorid"  : "1001002", 
@@ -140,28 +143,6 @@
              ]
             }
             ]
-        },
-        {
-        "cid"   : 500,
-        "gateway" : [
-            {
-            "gwid"      : "78e36d6415c4",
-            "sensor" : [
-                {
-                "sensorid"  : "1111", 
-                "type"      : "door",
-                "name"      : "MainDoor",
-                "trigger"   : "=",
-                "compare"   : "open",
-                "timeStart" : "00:00 AM",
-                "timeEnd"   : "11:59 PM",
-                "action"    : "alarm"
-                }
-             ]
-            }
-            ]
         }
-        
-        
     ]
 }

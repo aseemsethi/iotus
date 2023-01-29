@@ -9,7 +9,8 @@ import (
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
 
-var CONFIG_BROKER_URL string = "tcp://52.66.70.168:1883"
+var CONFIG_BROKER_URL string = "tcp://13.233.201.232:1883"
+//var CONFIG_BROKER_URL string = "tcp://52.66.70.168:1883"
 var c mqtt.Client = nil
 
 var f mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
@@ -19,6 +20,7 @@ var f mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
 
 // ALL MQTT Topics uplink/downlink are described here
 func Mqtt_set_routing() {
+	fmt.Printf("\n 11")
 	// ***** UPLINK ***** both gw and sensor add messages to be sent every 15 min by gw
 	// This acts as a heartbeat as well as to rebuild the cloud DB in the evernt of a
 	// restart.
@@ -27,6 +29,7 @@ func Mqtt_set_routing() {
 		fmt.Println(token.Error())
 		os.Exit(1)
 	}
+	fmt.Printf("\n 12")
 	// Update SENSORS Info - Control packets receive handler setup
 	if token := c.Subscribe("gurupada/sensor/add", 0, sensorMqttRcv); token.Wait() && token.Error() != nil {
 		fmt.Println(token.Error())
@@ -43,6 +46,7 @@ func Mqtt_set_routing() {
 	// All GWs need to listen on to this channel to get info
 	// Data JSON Format:
 	// { "custid":100, "cmdType": "http|mqtt", "cmdDst": "<url>|<mqttTopic>, "cmdVal": <data> }
+	fmt.Printf("\n 13")
 }
 
 func Mqtt_disconnect() {

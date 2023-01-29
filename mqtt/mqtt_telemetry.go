@@ -155,9 +155,9 @@ func checkAlarm(cid int, msg db.Telemerty) {
 								}
 							} else if v2.Type == "door" && v2.Trigger == "=" {
 								// We are triggering on "open" only for now...disregarding json file
-								if strings.Contains(msg.Data, "Open") {
-									fmt.Printf("\nDoor Opened %s", v2.SensorId)
-									alarmMsg := fmt.Sprintf("%s:Open", v2.Name)
+								if strings.Contains(msg.Data, "Open")  && v2.Compare == "open" {
+									fmt.Printf("\nDoor %s %s", v2.Compare, v2.SensorId)
+									alarmMsg := fmt.Sprintf("%s:%s", v2.Name, v2.Compare)
 									sensorStartTime, _ := time.ParseInLocation("03:04 PM", v2.TimeStart, loc)
 									sensorEndTime, _ := time.ParseInLocation("03:04 PM", v2.TimeEnd, loc)
 									if tmNow.After(sensorStartTime) &&
